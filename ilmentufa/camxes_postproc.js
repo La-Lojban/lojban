@@ -315,13 +315,15 @@ function prettify_brackets(str) {
 	var i = 0;
 	var floor = 0;
 	while (i < str.length) {
-		const n = floor % brackets_number;
-		const num = (floor && !n) ? str_print_uint(floor / brackets_number, numset) : "";
 		if (str[i] == '[') {
+			const n = floor % brackets_number;
+			const num = (floor && !n) ? str_print_uint(floor / brackets_number, numset) : "";
 			str = str_replace(str, i, 1, open_brackets[n] + num);
 			floor++;
 		} else if (str[i] == ']') {
 			floor--;
+			const n = floor % brackets_number;
+			const num = (floor && !n) ? str_print_uint(floor / brackets_number, numset) : "";
 			str = str_replace(str, i, 1, num + close_brackets[n]);
 		}
 		i++;
