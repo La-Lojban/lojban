@@ -1,0 +1,20 @@
+{
+  "name": "lojban",
+  "version": "0.0.16",
+  "description": "Lojban language parsers and tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "make -B test"
+  },
+  "author": "Gleki",
+  "license": "ISC",
+  "dependencies": {
+    "libxmljs": "^0.18.4",
+    "path-extra": "^0.2.1",
+    "then-request": "^2.2.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
