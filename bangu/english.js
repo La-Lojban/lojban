@@ -153,14 +153,14 @@ const gloss = (te_gerna, bangu, gentufa, xmlDoc) => {
   return te_gerna.map(a=>a[1]);
 }
 
-const zmifanva = (te_gerna, fanva) => {
+const zmifanva = (te_gerna, fanva, akti) => {
   const behe = require('then-request');
   const urli = `http://lojban.lilyx.net/zmifanva/?src=${te_gerna}&dir=${fanva}`;
-  return behe('GET', urli).then(se_spusku => {
+  behe('GET', urli).then(se_spusku => {
     if (se_spusku.statusCode === 200) {
       const re = /<textarea rows=\"8\" cols=\"40\">(.*?)<\/textarea>/;
       const match = re.exec(se_spusku.body.toString('utf8').replace(/\n/g, ""));
-      return match[1] || "O_0";
+      akti(match[1] || "O_0");
     }
   });
 };
@@ -314,4 +314,4 @@ const rafsi_giho_nai_se_rafsi_gui = (lin,xmlDoc,xugismu) => {
   return a;
 };
 
-module.exports = {gloss, zmifanva, wiktionary, rafsi_giho_nai_se_rafsi_gui};
+module.exports = {gloss, zmifanva, wiktionary, ma_rafsi, ma_selrafsi, rafsi_giho_nai_se_rafsi_gui};

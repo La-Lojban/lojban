@@ -14,9 +14,9 @@ function jvozba_gui(txt)
 		output_corresponding_selrafsi(arr[0]);
 		return;
 	}
-	
+let answers;	
 try{	
-	for(var i = 0; i < arr.length; i++) {
+	for(let i = 0; i < arr.length; i++) {
 		var dat = arr[i];
 		if(dat.startsWith("-") || dat.endsWith("-")) { // "luj-" or "-jvo"
 			arr[i] = search_selrafsi_from_rafsi(dat.replace(/-/g, ""));
@@ -24,7 +24,7 @@ try{
 		arr2[arr2.length] = arr[i];
 	}
 	
-	var answers = jvozba(arr, document.getElementById("lalaidoi").checked);
+	answers = jvozba(arr, document.getElementById("lalaidoi").checked);
 }catch(e){
 	alert(e); return;
 }
@@ -37,11 +37,12 @@ function output_corresponding_selrafsi(rafsi)
 {
 	var bare_rafsi = rafsi.replace(/-/g, "")
 	var selrafsi = search_selrafsi_from_rafsi2(bare_rafsi);
+	let info;
 	if(selrafsi) {
-		var info = "<div class='txt'>-" + bare_rafsi + "- is a rafsi for {" + selrafsi + "}</div>";
+		info = "<div class='txt'>-" + bare_rafsi + "- is a rafsi for {" + selrafsi + "}</div>";
 		document.getElementById("res").innerHTML = info;
 	} else {
-		var info = "<div class='txt'>No word found for rafsi -" + bare_rafsi + "-</div>";
+		info = "<div class='txt'>No word found for rafsi -" + bare_rafsi + "-</div>";
 		document.getElementById("res").innerHTML = info;
 	}
 }

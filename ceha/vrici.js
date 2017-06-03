@@ -27,8 +27,8 @@ const rukylermorna = te_gerna=>{
 const krulermorna = te_gerna=>{
   return te_gerna
   .replace(/h/g, "'")
-  .replace(/\bu([aeiou])/gi, '$1w$2')
-  .replace(/\bi([aeiou])/gi, '$1ɩ$2')
+  .replace(/\bu([aeiou])/gi, 'w$1')
+  .replace(/\bi([aeiou])/gi, 'ɩ$1')
   .replace(/au/gi, 'ǎ')
   .replace(/ai/gi, 'ą')
   .replace(/ei/gi, 'ę')

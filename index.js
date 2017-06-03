@@ -37,8 +37,9 @@ module.exports = {
   },
   ilmentufa_off: (te_gerna,mode)=>{
     try {
-      te_gerna = require('./ilmentufa/camxes_preproc.js').preprocessing(te_gerna);
-      return require('./ilmentufa/camxes_postproc.js').postprocessing(require('./ilmentufa/camxes.js').parse(te_gerna),mode);
+      return require('./ilmentufa/camxes_postproc.js').postprocessing(require('./ilmentufa/camxes.js').parse(
+        require('./ilmentufa/camxes_preproc.js').preprocessing(te_gerna)
+      ),mode);
     }
     catch (err) {
       const location_info = err.location ? '\nLocation: [' + err.location.start.offset +
@@ -86,8 +87,8 @@ module.exports = {
   gloss: (te_gerna,bangu,xmlDoc) => {
     return require('./bangu/english.js').gloss(te_gerna,bangu,module.exports.ilmentufa_off,xmlDoc);
   },
-  zmifanva: (te_gerna,fanva) => {
-    return require('./bangu/english.js').zmifanva(te_gerna,fanva);
+  zmifanva: (te_gerna,fanva,akti) => {
+    require('./bangu/english.js').zmifanva(te_gerna,fanva,akti);
   },
   wiktionary: (te_gerna,bangu,akti) => {
     require('./bangu/english.js').wiktionary(te_gerna,bangu,akti);

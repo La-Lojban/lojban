@@ -201,7 +201,7 @@ function process_parse_tree(
         if (action == 'TRIM') {
             /* If there's a value replacement for this node, we return it
                instead of the node's content. */
-            if (typeof substitution_value !== 'undefined')
+            if (substitution_value)
                 return substitution_value;
             /* Otherwise the first step of a trim action is to remove the node
                name. */
@@ -211,10 +211,10 @@ function process_parse_tree(
             /* No trimming, so let's see if the node name is in the renaming
                list. If so, let's rename it accordingly. */
             var v = name_substitution_map[parse_tree[0]];
-            if (typeof v !== 'undefined') parse_tree[0] = v;
+            if (v) parse_tree[0] = v;
             /* If there's a value replacement for this node, it becomes the
                unique value for the node. */
-            if (typeof substitution_value !== 'undefined')
+            if (substitution_value)
                 return [parse_tree[0], substitution_value];
         }
     }
@@ -368,7 +368,7 @@ function is_number(v) {
     return Object.prototype.toString.call(v) === '[object Number]';
 }
 
-if (typeof module !== 'undefined') {
+if (module) {
     module.exports.postprocessing = camxes_postprocessing;
     module.exports.postprocess = camxes_postprocessing;  // Alias
     module.exports.process_parse_tree = process_parse_tree;

@@ -74,22 +74,22 @@ function search_selrafsi_from_rafsi2(rafsi)
 		Thus, for the present I forbid the use of "brod" as a rafsi.
 	*/
 	if(rafsi !== "brod" && rafsi.length === 4 && rafsi.indexOf("'") === -1) { //4-letter rafsi
-		for(var u=0; u<5; u++) { 
+		for(let u=0; u<5; u++) { 
 			var gismu_candid = rafsi + "aeiou".charAt(u);
 			if(gismu_rafsi_list$(gismu_candid)) return gismu_candid;
 		}
 	}
-	for(var i in gismu_rafsi_list) {
+	for(let i in gismu_rafsi_list) {
 		if(gismu_rafsi_list[i].indexOf(rafsi) !== -1) return i;
 	}
-	for(var j in cmavo_rafsi_list) {
+	for(let j in cmavo_rafsi_list) {
 		if(cmavo_rafsi_list[j].indexOf(rafsi) !== -1) return j;
 	}
 	if(this.exp_rafsi) {
-		for(var i in gismu_rafsi_list_exp) {
+		for(let i in gismu_rafsi_list_exp) {
 			if(gismu_rafsi_list_exp[i].indexOf(rafsi) !== -1) return i;
 		}
-		for(var j in cmavo_rafsi_list_exp) {
+		for(let j in cmavo_rafsi_list_exp) {
 			if(cmavo_rafsi_list_exp[j].indexOf(rafsi) !== -1) return j;
 		}
 	}
