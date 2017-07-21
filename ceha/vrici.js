@@ -29,7 +29,7 @@ const krulermorna = te_gerna=>{
   .replace(/h/g, "'")
   .replace(/\bu([aeiou])/gi, 'w$1')
   .replace(/\bi([aeiou])/gi, 'ɩ$1')
-  .replace(/au/gi, 'ǎ')
+  .replace(/au/gi, 'ḁ')
   .replace(/ai/gi, 'ą')
   .replace(/ei/gi, 'ę')
   .replace(/oi/gi, 'ǫ');

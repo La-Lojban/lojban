@@ -52,7 +52,7 @@ module.exports = {
   ilmentufa_exp: (te_gerna,mode)=>{
     try {
       te_gerna = require('./ilmentufa/camxes_preproc.js').preprocessing(te_gerna);
-      return require('./ilmentufa/camxes_postproc.js').postprocessing(require('./ilmentufa/camxes-exp.js').parse(te_gerna),mode);
+      return require('./ilmentufa/camxes_postproc.js').postprocessing(require('./ilmentufa/camxes-beta.js').parse(te_gerna),mode);
     }
     catch (err) {
       const location_info = err.location ? '\nLocation: [' + err.location.start.offset +
