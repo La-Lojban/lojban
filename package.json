@@ -4,7 +4,8 @@
   "description": "Lojban language parsers and tools",
   "main": "index.js",
   "scripts": {
-    "test": "make -B test"
+    "test": "make -B test",
+    "push": "git add . ; git commit -a ; git push"
   },
   "author": "Gleki",
   "license": "ISC",
