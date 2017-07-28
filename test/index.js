@@ -88,10 +88,7 @@ describe('#gloss', function() {
 
 describe('#zmifanva', function() {
   it('should zmifanva for "coi ro do" as "Hi, everybody."', function() {
-    return lojban.zmifanva("coi ro do","jb2en")
-    .then(function(m) { chai_expect(m).to.equal('Hi, everybody.');})
-        .catch(function(m) { throw new Error((m) + '// was not supposed to fail'); })
-            ;
+    return lojban.zmifanva("coi ro do","jb2en",function(m) { chai_expect(m).to.equal('Hi, everybody.');})
   });
 });
 
