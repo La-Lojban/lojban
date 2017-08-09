@@ -22,7 +22,7 @@ describe('#rukylermorna', function() {
 
 describe('#romoi_lahi_cmaxes', function() {
   it('parses \'coi ro do\' as \'[["cmavo","coi"],["space"," "],["cmavo","ro"],["space"," "],["cmavo","do"]\']', function() {
-    JSON.stringify(lojban.romoi_lahi_cmaxes('coi ro do')).should.equal('[["cmavo","coi"],["space"," "],["cmavo","ro"],["space"," "],["cmavo","do"]]');
+    JSON.stringify(lojban.romoi_lahi_cmaxes('coi ro do')["te spuda"]).should.equal('[["cmavo","coi"],["space"," "],["cmavo","ro"],["space"," "],["cmavo","do"]]');
   });
 });
 
@@ -52,13 +52,13 @@ describe('#jvokaha_gui', function() {
 
 describe('#ilmentufa_off', function() {
   it('should parse "coi ro do" in MTC mode by default', function() {
-    JSON.stringify(lojban.ilmentufa_off("coi ro do")).should.equal("\"([COI: {c o i}] [{<PA: (¹r o¹)> BOI} {KOhA: <d o>}] DOhU)\"");
+    JSON.stringify(lojban.ilmentufa_off("coi ro do")["te spuda"]).should.equal("\"([COI: {c o i}] [{<PA: (¹r o¹)> BOI} {KOhA: <d o>}] DOhU)\"");
   });
 });
 
 describe('#ilmentufa_exp', function() {
   it('should parse "coi ro do" in MTC mode by default', function() {
-    JSON.stringify(lojban.ilmentufa_exp("coi ro do")).should.equal("\"([COI: {c o i}] [{<PA: (¹r o¹)> BOI} {KOhA: <d o>}] DOhU)\"");
+    JSON.stringify(lojban.ilmentufa_exp("coi ro do")["te spuda"]).should.equal("\"([COI: {c o i}] [{<PA: (¹r o¹)> BOI} {KOhA: <d o>}] DOhU)\"");
   });
 });
 

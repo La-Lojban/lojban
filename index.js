@@ -1,9 +1,10 @@
 module.exports = {
   romoi_lahi_cmaxes: te_gerna => {
     try {
-      return require('./cmaxes').parse(te_gerna);
+      const terspuda = require('./cmaxes').parse(te_gerna);
+      return {tcini: "snada", "te spuda": terspuda, "kampu": terspuda};
     } catch (e) {
-      return [];
+      return {tcini: "fliba", "te spuda": e, "kampu": e.toString()};
     }
   },
   jbopomofo: te_gerna => {
@@ -43,24 +44,20 @@ module.exports = {
     if (preprocess)
       te_gerna = require('./ilmentufa/camxes_preproc.js').preprocessing(te_gerna);
     try {
-      return require('./ilmentufa/camxes_postproc.js').postprocessing(require('./ilmentufa/camxes.js').parse(te_gerna), mode);
-    } catch (err) {
-      const location_info = err.location
-        ? '\nLocation: [' + err.location.start.offset + ', ' + err.location.end.offset + ']' + '\n…' + te_gerna.substring(err.location.start.offset, err.location.start.offset + 12) + '…'
-        : "";
-      return err.toString() + location_info;
+      const terspuda = require('./ilmentufa/camxes_postproc.js').postprocessing(require('./ilmentufa/camxes.js').parse(te_gerna), mode);
+      return {tcini: "snada", "te spuda": terspuda,"kampu": terspuda};
+    } catch (e) {
+      return {tcini: "fliba", "te spuda": e, "kampu": e.toString()};
     }
   },
   ilmentufa_exp: (te_gerna, mode, preprocess) => {
     if (preprocess)
       te_gerna = require('./ilmentufa/camxes_preproc.js').preprocessing(te_gerna);
     try {
-      return require('./ilmentufa/camxes_postproc.js').postprocessing(require('./ilmentufa/camxes-beta.js').parse(te_gerna), mode);
-    } catch (err) {
-      const location_info = err.location
-        ? '\nLocation: [' + err.location.start.offset + ', ' + err.location.end.offset + ']' + '\n…' + te_gerna.substring(err.location.start.offset, err.location.start.offset + 12) + '…'
-        : "";
-      return err.toString() + location_info;
+      const terspuda = require('./ilmentufa/camxes_postproc.js').postprocessing(require('./ilmentufa/camxes-beta.js').parse(te_gerna), mode);
+      return {tcini: "snada", "te spuda": terspuda,"kampu": terspuda};
+    } catch (e) {
+      return {tcini: "fliba", "te spuda": e, "kampu": e.toString()};
     }
   },
   zeizei: te_gerna => {

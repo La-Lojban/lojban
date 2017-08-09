@@ -41,7 +41,7 @@ const items = [
 function lojban2loglan(text,gentufa){
   text=text.toLowerCase().replace(/[^a-z'\. ]/g, '');
   let i, myregexp, j;
-      text = gentufa(text).map(a => a[1].replace(/-/g,'')).filter(a => a!==' ');
+      text = gentufa(text)["kampu"].map(a => a[1].replace(/-/g,'')).filter(a => a!==' ');
       for (i = 0; i < items.length; i++) {
         myregexp = new RegExp(`^${items[i][0]}$`, "gm");
         for (j = 0; j < text.length; j++) {
@@ -52,7 +52,7 @@ function lojban2loglan(text,gentufa){
       }
       text = text.join(" ").replace(/ /gm, "* ").replace(/$/gm, "*").replace(/A\*/gm, "").replace(/A$/gm, "");
   return text;
-}    
+}
 
 function loglan2lojban(text){
   text=text.toLowerCase().replace(/[^a-z'\. ]/g, '');

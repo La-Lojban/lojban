@@ -1,5 +1,5 @@
 const zeizei = (text,gentufa,jvokaha_gui,xulujvo,jvokaha,search_selrafsi_from_rafsi2) => { //insert spaces to lojban sentences, split lujvo into zo zei zei lujvo
-  return gentufa(text,"Q")
+  return gentufa(text,"Q")["kampu"]
   .map(a => a[1].replace(/-/g,'')).filter(a => a!==' ')
   .map(j=>
     {
@@ -9,7 +9,7 @@ const zeizei = (text,gentufa,jvokaha_gui,xulujvo,jvokaha,search_selrafsi_from_ra
           return a.replace(/ /g, " ");
         }
         return a.replace(/ /g, " zei ");
-      }  
+      }
       return j;
     }
   )

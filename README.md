@@ -1,4 +1,4 @@
-#lojban language
+# Lojban language
 
 Lojban language parsers and tools
 
@@ -9,7 +9,7 @@ npm install lojban --save
 ```
 
 ### All functions
-All supported functions can be seen by running 
+All supported functions can be seen by running
 ```
 npm test
 ```
@@ -24,10 +24,9 @@ console.log(lojban.rukylermorna('coi ro do'));//Bulgarian/Russian alphabet orthg
 
 ### Lojban parsers
 
-romoi_lahi_cmaxes is the latest version of the morphological parser la cmaxes 
+romoi_lahi_cmaxes is the latest version of the morphological parser la cmaxes
 
 ```JavaScript
 const lojban = require('lojban');
-console.log(lojban.romoi_lahi_cmaxes('coi ro do'));
-
+console.log(lojban.romoi_lahi_cmaxes('coi ro do')["te spuda"]);
 ```

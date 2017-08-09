@@ -113,7 +113,7 @@ const gloss = (te_gerna, bangu, gentufa, xmlDoc) => {
     xmlDoc = getxmlDoc(xmlDoc,bangu);
     let i, myregexp, j;
     if (gentufa) {
-        te_gerna = gentufa(te_gerna, "J")
+        te_gerna = gentufa(te_gerna, "J")["te spuda"]
         .replace(/,/g,' ')
         .replace(/[^a-z'\. ]/g, '')
         .replace(/ ([nd]ai)( |$)/img, "$1$2")
@@ -248,7 +248,7 @@ const galfi = (response, bangu, data, akti) => {
     if(!results.definitions||(results.definitions.length===0)) {
       akti("");
     }
-    else {	
+    else {
       let acc=results.title+'\n';
       for (let i = 0; i < results.definitions.length; i++) {
         acc += results.definitions[i].type + ": " + results.definitions[i].meaning+'\n';
