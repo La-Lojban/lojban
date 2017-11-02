@@ -64,7 +64,7 @@ const anji = [
 	["pezli","葉"],["pikci","乞"],["pikta","票"],["pilka","皮"],["pinfu","囚"],["pinta","橫"],["pinxe","喝"],
 	["pipno","琴"],["pixra","畫"],["platu","劃"],["pleji","付"],["plise","蘋"],["plita","平"],["plixa","犁"],
 	["pluja","繁"],["pluka","愉"],["polje","摺"],["polno","波"],["ponjo","本"],["ponse","有"],["porsi","序"],
-	["prali","利"],["prami","爱"],["prane","嘉"],["preja","展"],["prenu","人"],["prije","哲"],["prina","印"],
+	["prali","利"],["prami","愛"],["prane","嘉"],["preja","展"],["prenu","人"],["prije","哲"],["prina","印"],
 	["pritu","右"],["pruce","程"],["pruni","彈"],["pulji","警"],["purci","曾"],["racli","智"],["ractu","兔"],
 	["rafsi","諁"],["ragve","過"],["raktu","擾"],["ralci","妙"],["ralte","留"],["randa","挹"],["ranji","繼"],
 	["ranti","軟"],["rapli","再"],["rarna","然"],["rebla","尾"],["rekto","霸"],["remna","人"],["renvi","忍"],
