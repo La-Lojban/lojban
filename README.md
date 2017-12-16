@@ -30,3 +30,7 @@ romoi_lahi_cmaxes is the latest version of the morphological parser la cmaxes
 const lojban = require('lojban');
 console.log(lojban.romoi_lahi_cmaxes('coi ro do')["te spuda"]);
 ```
+`romoi_lahi_cmaxes` object has the following keys:
+* "tcini" that has the value "snada" for a grammatically correct input and "fliba" for incorrect input
+* "te spuda", the actual parse
+* "kampu", a simplified output

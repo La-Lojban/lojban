@@ -75,8 +75,9 @@ module.exports = {
   loglan2lojban: te_gerna => {
     return require('./bangu/loglan.js').loglan2lojban(te_gerna);
   },
-  gloss: (te_gerna, bangu, xmlDoc) => {
-    return require('./bangu/english.js').gloss(te_gerna, bangu, module.exports.ilmentufa_off, xmlDoc);
+  gloss: (te_gerna, bangu, xmlDoc, pilno_logentufa) => {
+    pilno_logentufa = pilno_logentufa?module.exports.ilmentufa_off:false;
+    return require('./bangu/english.js').gloss(te_gerna, bangu, pilno_logentufa, xmlDoc);
   },
   zmifanva: (te_gerna, fanva, akti) => {
     require('./bangu/english.js').zmifanva(te_gerna, fanva, akti);

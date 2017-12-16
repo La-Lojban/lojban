@@ -1,0 +1,45 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'run', 'test' ]
+2 info using npm@3.10.10
+3 info using node@v6.10.3
+4 verbose run-script [ 'pretest', 'test', 'posttest' ]
+5 info lifecycle lojban@0.0.26~pretest: lojban@0.0.26
+6 silly lifecycle lojban@0.0.26~pretest: no script for pretest, continuing
+7 info lifecycle lojban@0.0.26~test: lojban@0.0.26
+8 verbose lifecycle lojban@0.0.26~test: unsafe-perm in lifecycle true
+9 verbose lifecycle lojban@0.0.26~test: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/home/gleki/lojban/node_modules/.bin:/home/gleki/local/bin:/home/gleki/.cabal/bin:/usr/libexec/python2-sphinx:/home/gleki/local/bin:/home/gleki/.cabal/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/gleki/.local/bin:/home/gleki/bin
+10 verbose lifecycle lojban@0.0.26~test: CWD: /home/gleki/lojban
+11 silly lifecycle lojban@0.0.26~test: Args: [ '-c', 'make -B test' ]
+12 silly lifecycle lojban@0.0.26~test: Returned: code: 2  signal: null
+13 info lifecycle lojban@0.0.26~test: Failed to exec test script
+14 verbose stack Error: lojban@0.0.26 test: `make -B test`
+14 verbose stack Exit status 2
+14 verbose stack     at EventEmitter.<anonymous> (/usr/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at EventEmitter.emit (events.js:191:7)
+14 verbose stack     at ChildProcess.<anonymous> (/usr/lib/node_modules/npm/lib/utils/spawn.js:40:14)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at ChildProcess.emit (events.js:191:7)
+14 verbose stack     at maybeClose (internal/child_process.js:886:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
+15 verbose pkgid lojban@0.0.26
+16 verbose cwd /home/gleki/lojban
+17 error Linux 4.11.1-300.fc26.x86_64
+18 error argv "/usr/bin/node" "/usr/bin/npm" "run" "test"
+19 error node v6.10.3
+20 error npm  v3.10.10
+21 error code ELIFECYCLE
+22 error lojban@0.0.26 test: `make -B test`
+22 error Exit status 2
+23 error Failed at the lojban@0.0.26 test script 'make -B test'.
+23 error Make sure you have the latest version of node.js and npm installed.
+23 error If you do, this is most likely a problem with the lojban package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     make -B test
+23 error You can get information on how to open an issue for this project with:
+23 error     npm bugs lojban
+23 error Or if that isn't available, you can get their info via:
+23 error     npm owner ls lojban
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]
