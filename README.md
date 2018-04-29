@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/lojban.svg)](https://badge.fury.io/js/lojban)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/La-Lojban/lojban.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2FLa-Lojban%2Flojban)
 # Lojban language
 
 Lojban language parsers and tools
@@ -7,6 +9,8 @@ Lojban language parsers and tools
 ```
 npm install lojban --save
 ```
+
+[![NPM](https://nodei.co/npm/lojban.png)](https://npmjs.org/packages/lojban/)
 
 ### All functions
 All supported functions can be seen by running

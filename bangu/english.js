@@ -298,7 +298,7 @@ const ma_rafsi = (lin,xmlDoc,xugismu) => {
   } catch (err) {} //search in notes
 
   if (lin.substr(0, 4) !== 'brod' && xugismu(lin)) {
-    coun.push(lin.substr(0, 4));
+    coun.push(lin.substr(0, 4)+"y");
   } //long rafsi
   return coun;
 };
