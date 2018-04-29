@@ -198,7 +198,8 @@ const galfi = (response, bangu, data, akti) => {
     const linkRegex = /(\[{2,})([\w\s-]+)(\]{2,})/g;
     const type2LinkRegex = /(\[+)(\w+)([#|\w]+)(\]+)/g;
     const wikipediaArticleRegex = /(\[+)(:?w:)([\w\s]+?)\|([\w\s]+?)(\]+)/g;
-    const formalizedTextRegex = /({{)l\|([\w\W]+?)\|([\w\W]+?)(}})/g;
+    const formalizedTextRegex = /{{l\|[\w\W]+?\|([\w\W]+?)}}/g;
+    const formalizedTextRegex2 = /{{[^\|]+?\|([^\|\}]+?)}}/g;
     const contextDataRegex = /(\[{2,})([\w\W]+?)(\]{2,})|({+)([\w\W]+?)(}+)/g;
     const terbricmi = /({{sumti)\|([\w\W]+?)(}})/g;
     const startingAndTrailingCommasRegex = /(^, )|(,$)/g;
@@ -212,7 +213,8 @@ const galfi = (response, bangu, data, akti) => {
         .replace(linkRegex, "$2") //remove links to other words from definitions;
         .replace(type2LinkRegex, "$2") //replace links of the form [[information|Information]]
         .replace(wikipediaArticleRegex, "$4") //replace links to wikipedia articles with the link text
-        .replace(formalizedTextRegex, "$3") //strip formatting from formalized text
+        .replace(formalizedTextRegex, "$1") //strip formatting from formalized text
+        .replace(formalizedTextRegex2, "$1") //strip formatting from formalized text
         .replace(terbricmi, "x$2") //show places of terbricmi as intended
         .replace(contextDataRegex, ""); //get rid of any extra data that is not human-readiable
     }
