@@ -100,7 +100,7 @@ const universal_items = [ //universal glosses
 const getxmlDoc = (xmlDoc,bangu) => {
   const fs = require("fs");
   const path = require("path-extra");
-  const libxmljs = require("libxmljs");
+  const libxmljs = require("libxmljs2");
     return xmlDoc? xmlDoc : libxmljs.parseXml(fs.readFileSync(path.join(__dirname, "../dumps", `${bangu?bangu:'en'}.xml`), {
         encoding: 'utf8'
     }));

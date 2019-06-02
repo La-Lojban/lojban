@@ -10,7 +10,7 @@
   "author": "Gleki",
   "license": "ISC",
   "dependencies": {
-    "libxmljs": "^0.19.1",
+    "libxmljs2": "^0.21.3",
     "path-extra": "^0.2.1",
     "then-request": "^2.2.0"
   },
