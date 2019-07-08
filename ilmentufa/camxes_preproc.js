@@ -1,6 +1,7 @@
 function camxes_preprocessing(input) {
 	if (typeof input.valueOf() !== 'string') return "ERROR: Wrong input type.";
 	input = input.replace(/’/gm,"'");
+	input = input.replace(/[^\x20-\x7E]+/g, '');
 	input = input.replace(/·/gm,".");
     input = input.replace(/\u00AD/gm,"");
 	input = input.replace(/([0-9])\.([0-9])/gm,"$1 pi $2");
