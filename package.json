@@ -1,6 +1,6 @@
 {
   "name": "lojban",
-  "version": "0.0.36",
+  "version": "1.0.0",
   "description": "Lojban language parsers and tools",
   "main": "index.js",
   "scripts": {
@@ -10,12 +10,14 @@
   "author": "Gleki",
   "license": "ISC",
   "dependencies": {
-    "libxmljs2": "^0.21.3",
-    "path-extra": "^0.2.1",
-    "then-request": "^2.2.0"
+    "fast-xml-parser": "^3.12.19",
+    "he": "^1.2.0",
+    "path-extra": "^4.2.1",
+    "ramda": "^0.26.1",
+    "then-request": "^6.0.2"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0"
   }
 }

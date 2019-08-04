@@ -28,11 +28,11 @@ module.exports = {
   jvokaha_gui: valsi => {
     return require('./sozysozbot_jvozba').jvokaha_gui(valsi);
   },
-  rafsi: (valsi, xmlDoc) => {
-    return require('./bangu/english.js').rafsi(valsi, xmlDoc, module.exports.xugismu);
+  rafsi: (valsi, jsonDoc) => {
+    return require('./bangu/english.js').rafsi(valsi, jsonDoc, module.exports.xugismu);
   },
-  rafsi_giho_nai_se_rafsi_gui: (valsi, xmlDoc) => {
-    return require('./bangu/english.js').rafsi_giho_nai_se_rafsi_gui(valsi, xmlDoc, module.exports.xugismu);
+  rafsi_giho_nai_se_rafsi: (valsi, jsonDoc) => {
+    return require('./bangu/english.js').rafsi_giho_nai_se_rafsi(valsi, jsonDoc, module.exports.xugismu);
   },
   xulujvo: te_gerna => {
     return require('./cmaxes/xuvalsi.js').xulujvo(te_gerna, module.exports.romoi_lahi_cmaxes);
@@ -75,9 +75,9 @@ module.exports = {
   loglan2lojban: te_gerna => {
     return require('./bangu/loglan.js').loglan2lojban(te_gerna);
   },
-  gloss: (te_gerna, bangu, xmlDoc, pilno_logentufa) => {
+  gloss: (te_gerna, bangu, jsonDoc, pilno_logentufa) => {
     pilno_logentufa = pilno_logentufa?module.exports.ilmentufa_off:false;
-    return require('./bangu/english.js').gloss(te_gerna, bangu, pilno_logentufa, xmlDoc);
+    return require('./bangu/english.js').gloss(te_gerna, bangu, pilno_logentufa, jsonDoc);
   },
   zmifanva: (te_gerna, fanva, akti) => {
     require('./bangu/english.js').zmifanva(te_gerna, fanva, akti);

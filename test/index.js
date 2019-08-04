@@ -98,8 +98,8 @@ describe('#wiktionary', function() {
   });
 });
 
-describe('#rafsi_giho_nai_se_rafsi_gui', function() {
+describe('#rafsi_giho_nai_se_rafsi', function() {
   it('should output for "pu\'u" the string ""', function() {
-    JSON.stringify(lojban.rafsi_giho_nai_se_rafsi_gui("pu'u")).should.equal("{\"valsi\":\"pu'u\",\"rafsi\":[\"puv\"],\"serafsi\":\"sputu\"}");
+    JSON.stringify(lojban.rafsi_giho_nai_se_rafsi("pu'u")).should.equal("{\"valsi\":\"pu'u\",\"rafsi\":[\"puv\"],\"selrafsi\":[\"sputu\"]}");
   });
 });
