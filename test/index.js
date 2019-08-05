@@ -44,6 +44,13 @@ describe('#xulujvo', function() {
   });
 });
 
+
+describe('#jvokaha_gui', function() {
+  it("should split 'xonka'a' into ['-xon-','katna']", function() {
+    JSON.stringify(lojban.jvokaha_gui("xonka'a")).should.equal('["-xon-","katna"]');
+  });
+});
+
 describe('#jvokaha_gui', function() {
   it('should split \'fu\'ivla\' as \'["fukpi","valsi"]\'', function() {
     JSON.stringify(lojban.jvokaha_gui("fu'ivla")).should.equal('["fukpi","valsi"]');
