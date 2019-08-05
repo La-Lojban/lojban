@@ -307,9 +307,9 @@ const rafsi = (word, jsonDoc, xugismu) => {
   const valsi = jsonDoc.dictionary.direction[0].valsi;
   for (const v of valsi) {
     if (v.word === word) {
-      rafsi.concat(v.rafsi);
-      if ((v.notes || "").search(/^.*? -([a-z']+)-.*/) >= 0)
-        rafsi.concat(v.rafsi);
+      rafsi = rafsi.concat(v.rafsi);
+      const match = (v.notes || "").match(/^.*? -([a-z']+)-.*/);
+      if (match && match[1]) rafsi.push(match[1]);
       if (v.type && v.type.indexOf("fuhivla") >= 0) rafsi.push(v.word + "'y");
     }
     if (v.rafsi && v.rafsi.includes(word)) selrafsi.push(v.word);

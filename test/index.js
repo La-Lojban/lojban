@@ -94,6 +94,7 @@ describe('#loglan2lojban', function() {
 });
 
 describe('#gloss', function() {
+  this.timeout(12000);
   it('should gloss "coi ro do" as "hello each-of you"', function() {
     lojban.gloss("coi ro do").join(" ").should.equal("hello each-of you");
   });
@@ -112,7 +113,15 @@ describe('#wiktionary', function() {
 });
 
 describe('#rafsi_giho_nai_se_rafsi', function() {
+  this.timeout(12000);
   it('should output for "pu\'u" the string ""', function() {
     JSON.stringify(lojban.rafsi_giho_nai_se_rafsi("pu'u")).should.equal("{\"valsi\":\"pu'u\",\"rafsi\":[\"puv\"],\"selrafsi\":[\"sputu\"]}");
+  });
+});
+
+describe('#rafsi_giho_nai_se_rafsi', function() {
+  this.timeout(12000);
+  it('should output for "bloti" the string "lot,lo\'i"', function() {
+    JSON.stringify(lojban.rafsi_giho_nai_se_rafsi("bloti")).should.equal('{"valsi":"bloti","rafsi":["lot","blo","lo\'i","bloty"],"selrafsi":[]}');
   });
 });
