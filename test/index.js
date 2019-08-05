@@ -50,6 +50,12 @@ describe('#jvokaha_gui', function() {
   });
 });
 
+describe('#jvokaha_gui', function() {
+  it('should split \'nunyjmive\' as \'["nu","jmive"]\'', function() {
+    JSON.stringify(lojban.jvokaha_gui("nunyjmive")).should.equal('["nu","jmive"]');
+  });
+});
+
 describe('#ilmentufa_off', function() {
   it('should parse "coi ro do" in MTC mode by default', function() {
     JSON.stringify(lojban.ilmentufa_off("coi ro do")["te spuda"]).should.equal("\"([COI: {c o i}] [{<PA: (¹r o¹)> BOI} {KOhA: <d o>}] DOhU)\"");
