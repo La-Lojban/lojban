@@ -306,14 +306,26 @@ const rafsi = (word, jsonDoc, xugismu) => {
   let selrafsi = [];
   const valsi = jsonDoc.dictionary.direction[0].valsi;
   for (const v of valsi) {
-    if (v.word === word ) {
-      if (v.rafsi) rafsi = rafsi.concat(v.rafsi);
+    if (v.word === word) {
+      if (v.rafsi) {
+        if (Array.isArray(v.rafsi)) {
+          rafsi = rafsi.concat(v.rafsi);
+        } else {
+          rafsi.push(v.rafsi);
+        }
+      }
       const match = (v.notes || "").match(/^.*? -([a-z']+)-.*/);
       if (match && match[1]) rafsi.push(match[1]);
       if (v.type && v.type.indexOf("fuhivla") >= 0) rafsi.push(v.word + "'y");
     }
-    if (v.rafsi && v.rafsi.includes(word)) selrafsi.push(v.word);
-    else if ((v.notes || "").search(new RegExp(`^.*? -(${word})-.*`)) >= 0)
+    if (v.rafsi) {
+      if (
+        (Array.isArray(v.rafsi) && v.rafsi.includes(word)) ||
+        v.rafsi === word
+      ) {
+        selrafsi.push(v.word);
+      }
+    } else if ((v.notes || "").search(new RegExp(`^.*? -(${word})-.*`)) >= 0)
       selrafsi.push(v.word);
   }
   if (word.substr(0, 4) !== "brod" && xugismu(word)) {

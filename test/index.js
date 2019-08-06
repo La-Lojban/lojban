@@ -132,3 +132,10 @@ describe('#rafsi_giho_nai_se_rafsi', function() {
     JSON.stringify(lojban.rafsi_giho_nai_se_rafsi("bloti")).should.equal('{"valsi":"bloti","rafsi":["lot","blo","lo\'i","bloty"],"selrafsi":[]}');
   });
 });
+
+describe('#rafsi_giho_nai_se_rafsi', function() {
+  this.timeout(12000);
+  it('should output for "bloti" the string "{"valsi":"mi","rafsi":["mib"],"selrafsi":[]}"', function() {
+    JSON.stringify(lojban.rafsi_giho_nai_se_rafsi("mi")).should.equal('{"valsi":"mi","rafsi":["mib"],"selrafsi":[]}');
+  });
+});
