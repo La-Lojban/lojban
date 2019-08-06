@@ -1,6 +1,6 @@
 {
   "name": "lojban",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Lojban language parsers and tools",
   "main": "index.js",
   "scripts": {

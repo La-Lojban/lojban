@@ -99,6 +99,9 @@ const universal_items = [
   ["ba'e", "(NB!=>)"],
   ["na", "!"]
 ];
+function jsonDocDirection(jsonDoc) {
+  return jsonDoc.dictionary.direction[0] || jsonDoc.dictionary.direction;
+}
 
 function fastParse(jsonDoc, bangu = "en") {
   if (jsonDoc) return jsonDoc;
@@ -144,7 +147,7 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
     for (let j = 0; j < universal_items.length; j++)
       if (word === universal_items[j][0]) return universal_items[j][1];
     let gloss;
-    const valsi = jsonDoc.dictionary.direction[0].valsi.filter(
+    const valsi = jsonDocDirection(jsonDoc).valsi.filter(
       v => v.word === word
     );
     if (valsi[0]) {
@@ -304,7 +307,7 @@ const selmaho = ({ word, jsonDoc }) => {
   jsonDoc = fastParse(jsonDoc);
   word = word.toLowerCase();
   let r = { full: [], partial: [] };
-  const words = jsonDoc.dictionary.direction[0].valsi.filter(v => {
+  const words = jsonDocDirection(jsonDoc).valsi.filter(v => {
     if (v.selmaho) {
       if (v.selmaho.toLowerCase() === word) r.full.push(v.word);
       else if (
@@ -323,7 +326,7 @@ const rafsi = (word, jsonDoc, xugismu) => {
   jsonDoc = fastParse(jsonDoc);
   let rafsi = [];
   let selrafsi = [];
-  const valsi = jsonDoc.dictionary.direction[0].valsi;
+  const valsi = jsonDocDirection(jsonDoc).valsi;
   for (const v of valsi) {
     if (v.word === word) {
       if (v.rafsi) {
