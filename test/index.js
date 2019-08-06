@@ -1,12 +1,15 @@
+
+const chai = require('chai'),
+should = chai.should(),
+chai_expect = chai.expect,
+lojban = require('../index')
+;
+
+// console.log(lojban.selmaho({word: "ui"}));
 // console.log(lojban.krulermorna('coi ro do'));
 // console.log(lojban.rukylermorna('coi ro do'));
 // console.log(lojban.romoi_lahi_cmaxes('coi ro do'));
-
-const chai = require('chai'),
-    should = chai.should(),
-    chai_expect = chai.expect,
-    lojban = require('../index')
-;
+// process.exit();
 
 describe('#krulermorna', function() {
   it('transliterates \"coi ro do\" into \"cǫ ro do\"', function() {

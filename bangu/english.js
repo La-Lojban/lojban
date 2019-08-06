@@ -300,6 +300,25 @@ const wiktionary = (te_gerna, bangu, akti) => {
   });
 };
 
+const selmaho = ({ word, jsonDoc }) => {
+  jsonDoc = fastParse(jsonDoc);
+  word = word.toLowerCase();
+  let r = { full: [], partial: [] };
+  const words = jsonDoc.dictionary.direction[0].valsi.filter(v => {
+    if (v.selmaho) {
+      if (v.selmaho.toLowerCase() === word) r.full.push(v.word);
+      else if (
+        v.selmaho.toLowerCase().search(new RegExp(`${word}[\\d]+`)) === 0
+      )
+        r.partial.push(v.word);
+    }
+  });
+  const cll = require("./cll.js");
+  const cllarr = cll.cllk()[word];
+  if (cllarr) r.CLL = cllarr;
+  return r;
+};
+
 const rafsi = (word, jsonDoc, xugismu) => {
   jsonDoc = fastParse(jsonDoc);
   let rafsi = [];
@@ -345,6 +364,7 @@ module.exports = {
   gloss,
   zmifanva,
   wiktionary,
+  selmaho,
   rafsi,
   rafsi_giho_nai_se_rafsi
 };

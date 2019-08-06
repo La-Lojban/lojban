@@ -31,6 +31,9 @@ module.exports = {
   rafsi: (valsi, jsonDoc) => {
     return require('./bangu/english.js').rafsi(valsi, jsonDoc, module.exports.xugismu);
   },
+  selmaho: ({word, jsonDoc}) => {
+    return require('./bangu/english.js').selmaho({word, jsonDoc});
+  },
   rafsi_giho_nai_se_rafsi: (valsi, jsonDoc) => {
     return require('./bangu/english.js').rafsi_giho_nai_se_rafsi(valsi, jsonDoc, module.exports.xugismu);
   },
