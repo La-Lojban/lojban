@@ -99,7 +99,7 @@ describe('#loglan2lojban', function() {
 describe('#gloss', function() {
   this.timeout(12000);
   it('should gloss "coi ro do" as "hello each-of you"', function() {
-    lojban.gloss("coi ro do").join(" ").should.equal("hello each-of you");
+    lojban.gloss("coi ro do","en",false,false).join(" ").should.equal("hello each-of you");
   });
 });
 
