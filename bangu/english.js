@@ -76,6 +76,7 @@ const items = [
 const universal_items = [
   ["ba'e", "NB! =>"],
   ["bo", "><"],
+  ["bo", "><"],
   ["cai", "!!!"],
   ["cu", ":"],
   ["da", "X"],
@@ -165,7 +166,7 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
         if (c[0]) gloss = c[0].word;
       }
     }
-    return gloss || "*" + word;
+    return gloss.replace(/ /g,'-') || "*" + word;
   });
 };
 
