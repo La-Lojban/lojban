@@ -24,15 +24,17 @@ const rukylermorna = te_gerna=>{
   return te_gerna;
 }
 
-const krulermorna = te_gerna=>{
-  return te_gerna
+const krulermorna = t => t
+  .toLowerCase()
   .replace(/h/g, "'")
-  .replace(/\bu([aeiou])/gi, 'w$1')
-  .replace(/\bi([aeiou])/gi, 'ɩ$1')
-  .replace(/au/gi, 'ḁ')
-  .replace(/ai/gi, 'ą')
-  .replace(/ei/gi, 'ę')
-  .replace(/oi/gi, 'ǫ');
-}
+  .replace(/([ptkflscmxbdgvrzjnaeiouy\. ])u([aeiouy])/g, "$1w$2")
+  .replace(/([ptkflscmxbdgvrzjnaeiouy\. ])i([aeiouy])/g, "$1ɩ$2")
+  .replace(/^u([aeiouy])/g, "w$1")
+  .replace(/^i([aeiouy])/g, "ɩ$1")
+  .replace(/au/g, "ḁ")
+  .replace(/ai/g, "ą")
+  .replace(/ei/g, "ę")
+  .replace(/oi/g, "ǫ");
+
 
 module.exports = {jbopomofo, rukylermorna, krulermorna}
