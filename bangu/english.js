@@ -138,8 +138,10 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
   jsonDoc = fastParse(jsonDoc, bangu);
   let i, myregexp, j;
   if (gentufa) {
-    te_gerna = gentufa(te_gerna, "J")
-      ["kampu"].replace(/,/g, " ")
+    const parsed = gentufa(te_gerna, "J");
+    if (parsed.tcini !== "snada") return "di'u na gendra";
+    te_gerna = parsed["kampu"]
+      .replace(/,/g, " ")
       .replace(/[^a-z'\. ]/g, "")
       .replace(/ {2,}/gm, " ")
       .trim();
@@ -151,9 +153,7 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
     for (let j = 0; j < universal_items.length; j++)
       if (word === universal_items[j][0]) return universal_items[j][1];
     let gloss;
-    const valsi = jsonDocDirection(jsonDoc).valsi.filter(
-      v => v.word === word
-    );
+    const valsi = jsonDocDirection(jsonDoc).valsi.filter(v => v.word === word);
     if (valsi[0]) {
       const v = valsi[0];
       gloss =
