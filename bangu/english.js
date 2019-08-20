@@ -76,7 +76,7 @@ const items = [
 const universal_items = [
   ["ba'e", "NB! =>"],
   ["bo", "><"],
-  ["bo", "><"],
+  ["zei", "><"],
   ["cai", "!!!"],
   ["cu", ":"],
   ["da", "X"],
