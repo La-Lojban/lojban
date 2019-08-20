@@ -135,9 +135,9 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
   let i, myregexp, j;
   if (gentufa) {
     te_gerna = gentufa(te_gerna, "J")
-      ["te spuda"].replace(/,/g, " ")
+      ["kampu"].replace(/,/g, " ")
       .replace(/[^a-z'\. ]/g, "")
-      .replace(/ ([nd]ai)( |$)/gim, "$1$2")
+      .replace(/ {2,}/gm, " ")
       .trim();
   }
   return te_gerna.split(" ").map(word => {
