@@ -252,7 +252,7 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
   });
 
   target = target.filter(j => j !== true);
-  return target.join(" ");
+  return target;
 };
 
 const zmifanva = (te_gerna, fanva, akti) => {
