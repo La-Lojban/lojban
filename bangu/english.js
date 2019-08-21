@@ -1,109 +1,126 @@
 const R = require("ramda");
 const he = require("he");
-const items = [
-  ["a", "and/or"],
-  ["ba", "in-future"],
-  ["bu'u", "at"],
-  ["ca", "at-present"],
-  ["co'a", "become"],
-  ["co'o", "goodbye"],
-  ["coi", "hello"],
-  ["dansu", "dance(s)"],
-  ["dansu@n", "dancer(s)"],
-  ["doi", "oh"],
-  ["e'a", "[permission-granted]"],
-  ["e'u", "I-suggest"],
-  ["e", "and"],
-  ["enai", "and-not"],
-  ["gi'a", ",-and/or"],
-  ["gi'e", ",-and"],
-  ["gi'u", "whether-or-not"],
-  ["gu", "whether-or-not"],
-  ["ie", "yeah"],
-  ["ja", "and/or"],
-  ["je'a", "indeed"],
-  ["je", "and"],
-  ["jenai", "and-not"],
-  ["ju", "whether-or-not"],
-  ["ka'e", "possibly-can"],
-  ["ka", "being"],
-  ["klama", "come(s)"],
-  ["klama@n", "comer"],
-  ["ko", "do-it-so-that-you"],
-  ["ku", ","],
-  ["la", "@@@"],
-  ["le", "the"],
-  ["lo", "those-which"],
-  ["ma", "what"],
-  ["me", "among"],
-  ["mi", "me"], //dont copy
-  ["mlatu", "is-a-cat"],
-  ["mlatu@n", "cat"],
-  ["mo", "is-what"],
-  ["na'e", "not"],
-  ["na", "not"],
-  ["nai", "-not"],
-  ["nelci", "fond-of"],
-  ["noi", ",which"],
-  ["nu", "event-of"],
-  ["oi", "ouch"],
-  ["pa'o", "through"],
-  ["pe'i", "in-my-opinion"],
-  ["pe", "that-is-related-to"],
-  ["pei", "?"],
-  ["poi", "that"],
-  ["pu", "in-past"],
-  ["ra", "recently-mentioned"],
-  ["re'u", "time"],
-  ["ro", "each-of"],
-  ["roi", "times"],
-  ["slabu", "is-familiar-to"],
-  ["tu'a", "about"],
-  ["u'u", "sorry"],
-  ["u", "whether-or-not"],
-  ["ui", "yay"],
-  ["uinai", "unfortunately"],
-  ["uinai", "unfortunately"],
-  ["vau", "]"],
-  ["xu", "is-it-true-that"],
-  ["xunai", "isnt-it-so-that"],
-  ["za'a", "as-I-can-see"],
-  ["za'adai", "as-you-can-see"],
-  ["zo'u", ":"],
-  ["zo", "the-word:"]
+const items = {
+  a: "and/or",
+  ba: "in-future",
+  "bu'u": "at",
+  ca: "at-present",
+  "co'a": "become",
+  "co'o": "goodbye",
+  coi: "hello",
+  dansu: "dance(s)",
+  "dansu@n": "dancer(s)",
+  doi: "oh",
+  "e'a": "[permission-granted]",
+  "e'u": "I-suggest",
+  e: "and",
+  enai: "and-not",
+  "gi'a": ",-and/or",
+  "gi'e": ",-and",
+  "gi'u": "whether-or-not",
+  gu: "whether-or-not",
+  ie: "yeah",
+  ja: "and/or",
+  "je'a": "indeed",
+  je: "and",
+  jenai: "and-not",
+  ju: "whether-or-not",
+  "ka'e": "possibly-can",
+  ka: "being",
+  klama: "come(s)",
+  "klama@n": "comer",
+  ko: "do-it-so-that-you",
+  ku: (array, index) => {
+    array[index - 1] = array[index - 1] + ",";
+    return array;
+  },
+  la: (array, index) => {
+    const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
+    array[index + 1] = capitalize(array[index + 1]);
+    return array;
+  },
+  le: "the",
+  lo: "those-which",
+  ma: "what",
+  me: "among",
+  mi: "me", //dont copy
+  mlatu: "is-a-cat",
+  "mlatu@n": "cat",
+  mo: "is-what",
+  "na'e": "not",
+  na: "not",
+  nai: "-not",
+  nelci: "fond-of",
+  noi: (array, index) => {
+    array[index - 1] = array[index - 1] + ", which";
+    return array;
+  },
+  poi: (array, index) => {
+    array[index - 1] = array[index - 1] + " that";
+    return array;
+  },
+  nu: "event-of",
+  oi: "ouch",
+  "pa'o": "through",
+  "pe'i": "in-my-opinion",
+  pe: "that-is-related-to",
+  pei: "?",
+  pu: "in-past",
+  ra: "recently-mentioned",
+  "re'u": "time",
+  ro: "each-of",
+  roi: "times",
+  slabu: "is-familiar-to",
+  "tu'a": "about",
+  "u'u": "sorry",
+  u: "whether-or-not",
+  ui: "yay",
+  uinai: "unfortunately",
+  vau: (array, index) => {
+    array[index - 1] = array[index - 1] + "]";
+    return array;
+  },
+  xu: "is-it-true-that",
+  xunai: "isnt-it-so-that",
+  "za'a": "as-I-can-see",
+  "za'adai": "as-you-can-see",
+  "zo'u": ":",
+  zo: "the-word:"
   //["bakni","is-a-cow"],
-];
-const universal_items = [
-  ["ba'e", "NB! =>"],
-  ["bo", "><"],
-  ["zei", "><"],
-  ["cai", "!!!"],
-  ["cu", ":"],
-  ["da", "X"],
-  ["de", "Y"],
-  ["di", "Z"],
-  ["fa'o", "∎"],
-  ["fa", "¹"],
-  ["fe", "²"],
-  ["fi", "³"],
-  ["fo", "⁴"],
-  ["fu", "⁵"],
-  ["i", "§"],
-  ["jo", "⇔"],
-  ["li'u", "”"],
-  ["lu", "“"],
-  ["na'e", "!"],
-  ["na", "!"],
-  ["ni'o", "¶"],
-  ["si", "✎"],
-  ["sa", "✎"],
-  ["su", "✎"],
-  ["sai", "!"],
-  ["se", "1⇔2"],
-  ["te", "1⇔3"],
-  ["ve", "1⇔4"],
-  ["xe", "1⇔5"]
-];
+};
+
+const universalItems = {
+  "ba'e": "NB! =>",
+  bo: "><",
+  zei: "><",
+  cai: "!!!",
+  cu: ":",
+  da: "X",
+  de: "Y",
+  di: "Z",
+  "fa'o": "∎",
+  fa: "¹",
+  fe: "²",
+  fi: "³",
+  fo: "⁴",
+  fu: "⁵",
+  i: "§",
+  jo: "⇔",
+  "li'u": "”",
+  lu: "“",
+  "na'e": "!",
+  na: "!",
+  "ni'o": "¶",
+  si: "✎",
+  sa: "✎",
+  su: "✎",
+  sai: "!",
+  se: "1⇔2",
+  te: "1⇔3",
+  ve: "1⇔4",
+  xe: "1⇔5"
+};
+
 function jsonDocDirection(jsonDoc) {
   return jsonDoc.dictionary.direction[0] || jsonDoc.dictionary.direction;
 }
@@ -147,12 +164,49 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
       .replace(/ {2,}/gm, " ")
       .trim();
   }
-  return te_gerna.split(" ").map(word => {
-    if (bangu === "en")
-      for (let j = 0; j < items.length; j++)
-        if (word === items[j][0]) return items[j][1];
-    for (let j = 0; j < universal_items.length; j++)
-      if (word === universal_items[j][0]) return universal_items[j][1];
+  te_gerna = te_gerna.split(" ");
+
+  target = te_gerna.slice();
+  const fItems = {};
+  const fUniversalItems = {};
+  const lItems = {};
+  const lUniversalItems = {};
+  Object.keys(items).map(i => {
+    if (items[i] instanceof Function) {
+      fItems[i] = items[i];
+    } else {
+      lItems[i] = items[i];
+    }
+  });
+  Object.keys(universalItems).map(i => {
+    if (universalItems[i] instanceof Function) {
+      fUniversalItems[i] = universalItems[i];
+    } else {
+      lUniversalItems[i] = universalItems[i];
+    }
+  });
+
+  for (let j in target) {
+    const word = target[j];
+    if (bangu === "en") {
+      const match = R.compose(
+        R.take(1),
+        R.filter(n => n === word)
+      )(Object.keys(lItems));
+      if (match[0]) {
+        target[j] = lItems[match[0]];
+        continue;
+      }
+    }
+    const match = R.compose(
+      R.take(1),
+      R.filter(n => n === word)
+    )(Object.keys(lUniversalItems));
+    if (match[0]) {
+      target[j] = lUniversalItems[match[0]];
+      continue;
+    }
+
     let gloss;
     const valsi = jsonDocDirection(jsonDoc).valsi.filter(v => v.word === word);
     if (valsi[0]) {
@@ -166,8 +220,39 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
         if (c[0]) gloss = c[0].word;
       }
     }
-    return gloss.replace(/ /g,'-') || "*" + word;
+    if (!gloss) {
+      target[j] = te_gerna[j] + "*";
+    } else {
+      target[j] = gloss.replace(/ /g, "-");
+    }
+  }
+
+  //functional
+  te_gerna.forEach((word, j) => {
+    if (bangu === "en") {
+      const match = R.compose(
+        R.take(1),
+        R.filter(n => n === word)
+      )(Object.keys(fItems));
+      if (match[0]) {
+        target = fItems[match[0]](target, j);
+        target[j] = true;
+      }
+    }
+    if (target[j] !== true) {
+      const match = R.compose(
+        R.take(1),
+        R.filter(n => n === word)
+      )(Object.keys(fUniversalItems));
+      if (match[0]) {
+        target = fUniversalItems[match[0]](target, j);
+        target[j] = true;
+      }
+    }
   });
+
+  target = target.filter(j => j !== true);
+  return target.join(" ");
 };
 
 const zmifanva = (te_gerna, fanva, akti) => {
