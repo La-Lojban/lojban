@@ -150,14 +150,12 @@ function fastParse(jsonDoc, bangu = "en") {
 
 const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
   te_gerna = te_gerna
-    .replace(/\"/g, "")
-    .toLowerCase()
-    .replace(/[^a-z'\. ]/g, "");
+    .replace(/\"/g, "");
   jsonDoc = fastParse(jsonDoc, bangu);
   let i, myregexp, j;
   if (gentufa) {
-    const parsed = gentufa(te_gerna, "J");
-    if (parsed.tcini !== "snada") return "di'u na gendra";
+    const parsed = gentufa(te_gerna, ' ', true);
+    if (parsed.tcini !== "snada") return ["di'u na gendra"];
     te_gerna = parsed["kampu"]
       .replace(/,/g, " ")
       .replace(/[^a-z'\. ]/g, "")

@@ -85,14 +85,14 @@ describe('#zeizei', function() {
 });
 
 describe('#lojban2loglan', function() {
-  it('should translate "lo prenu ca klama ti" into "le pernu na godzi ti"', function() {
-    lojban.lojban2loglan("lo prenu ca klama ti").should.equal("le pernu na godzi ti");
+  it('should translate "lo prenu ca klama ti" into "su pernu na godzi ti"', function() {
+    lojban.lojban2loglan("lo prenu ca klama ti").should.equal("su pernu na godzi ti");
   });
 });
 
 describe('#loglan2lojban', function() {
-  it('should translate "le pernu na godzi ti" into "lo prenu ca klama ti"', function() {
-    lojban.loglan2lojban("le pernu na godzi ti").should.equal("lo prenu ca klama ti");
+  it('should translate "le pernu na godzi ti" into "le prenu ca klama ti"', function() {
+    lojban.loglan2lojban("le pernu na godzi ti").should.equal("le prenu ca klama ti");
   });
 });
 
@@ -142,3 +142,4 @@ describe('#rafsi_giho_nai_se_rafsi', function() {
     JSON.stringify(lojban.rafsi_giho_nai_se_rafsi("mi")).should.equal('{"valsi":"mi","rafsi":["mib"],"selrafsi":[]}');
   });
 });
+
