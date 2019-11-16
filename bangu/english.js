@@ -439,7 +439,7 @@ const rafsi = (word, jsonDoc, xugismu) => {
       selrafsi.push(v.word);
   }
   if (word.substr(0, 4) !== "brod" && xugismu(word)) {
-    rafsi.push(word.substr(0, 4) + "y");
+    rafsi.push(word.substr(0, 4));
   }
   return { rafsi, selrafsi };
 };
