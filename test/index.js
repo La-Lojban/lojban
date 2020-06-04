@@ -24,8 +24,8 @@ describe('#rukylermorna', function() {
 });
 
 describe('#romoi_lahi_cmaxes', function() {
-  it('parses \'coi ro do\' as \'[["cmavo","coi"],["space"," "],["cmavo","ro"],["space"," "],["cmavo","do"]\']', function() {
-    JSON.stringify(lojban.romoi_lahi_cmaxes('coi ro do')["te spuda"]).should.equal('[["cmavo","coi"],["space"," "],["cmavo","ro"],["space"," "],["cmavo","do"]]');
+  it('parses \'coi ro do\' as \'[["cmavo","coi"],["drata"," "],["cmavo","ro"],["drata"," "],["cmavo","do"]]\'', function() {
+    JSON.stringify(lojban.romoi_lahi_cmaxes('coi ro do')["te spuda"]).should.equal('[["cmavo","coi"],["drata"," "],["cmavo","ro"],["drata"," "],["cmavo","do"]]');
   });
 });
 
@@ -132,13 +132,13 @@ describe('#rafsi_giho_nai_se_rafsi', function() {
 describe('#rafsi_giho_nai_se_rafsi', function() {
   this.timeout(12000);
   it('should output for "bloti" the string "lot,lo\'i"', function() {
-    JSON.stringify(lojban.rafsi_giho_nai_se_rafsi("bloti")).should.equal('{"valsi":"bloti","rafsi":["lot","blo","lo\'i","bloty"],"selrafsi":[]}');
+    JSON.stringify(lojban.rafsi_giho_nai_se_rafsi("bloti")).should.equal('{"valsi":"bloti","rafsi":["lot","blo","lo\'i","blot"],"selrafsi":[]}');
   });
 });
 
 describe('#rafsi_giho_nai_se_rafsi', function() {
   this.timeout(12000);
-  it('should output for "bloti" the string "{"valsi":"mi","rafsi":["mib"],"selrafsi":[]}"', function() {
+  it('should output for "mi" the string "{"valsi":"mi","rafsi":["mib"],"selrafsi":[]}"', function() {
     JSON.stringify(lojban.rafsi_giho_nai_se_rafsi("mi")).should.equal('{"valsi":"mi","rafsi":["mib"],"selrafsi":[]}');
   });
 });
