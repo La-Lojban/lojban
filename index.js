@@ -7,6 +7,14 @@ module.exports = {
       return { tcini: "fliba", "te spuda": e, kampu: e.toString() };
     }
   },
+  cmaxes: ({te_gerna, versiio='index'}) => {
+    try {
+      const terspuda = require(`./cmaxes/${versiio}.js`).parse(te_gerna);
+      return { tcini: "snada", "te spuda": terspuda, kampu: terspuda };
+    } catch (e) {
+      return { tcini: "fliba", "te spuda": e, kampu: e.toString() };
+    }
+  },
   jbopomofo: te_gerna => {
     return require("./ceha/vrici.js").jbopomofo(te_gerna);
   },
