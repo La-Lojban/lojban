@@ -4,12 +4,13 @@ const zeizei = (
   jvokaha_gui,
   xulujvo,
   jvokaha,
-  search_selrafsi_from_rafsi2
+  search_selrafsi_from_rafsi2,
+  returnFullInfo
 ) => {
   //insert spaces to lojban sentences, split lujvo into zo zei zei lujvo
   const g = gentufa(text, "Q")
   if (g.tcini === "fliba") return ""
-  return g["kampu"]
+  const result= g["kampu"]
     .filter((a) => a[1] !== " ")
     .map((j) => {
       var valsi = j[1]
@@ -23,9 +24,10 @@ const zeizei = (
           })
           .join(" zei ")
       }
-      return valsi
-    })
-    .join(" ")
+      return returnFullInfo? [klesi, valsi]:valsi
+    });
+    
+    return returnFullInfo? result : result.join(" ")
     .trim()
 }
 const rotpaci = (te_gerna) =>

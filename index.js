@@ -95,14 +95,16 @@ module.exports = {
       return { tcini: "fliba", "te spuda": e, kampu: e.toString() };
     }
   },
-  zeizei: te_gerna => {
+  zeizei: (te_gerna, 
+    returnFullInfo) => {
     return require("./ceha/zeizei.js").zeizei(
       te_gerna,
       module.exports.romoi_lahi_cmaxes,
       module.exports.jvokaha_gui,
       require("./cmaxes/xuvalsi.js").xulujvo,
       module.exports.jvokaha,
-      require("./sozysozbot_jvozba").search_selrafsi_from_rafsi2
+      require("./sozysozbot_jvozba").search_selrafsi_from_rafsi2,
+      returnFullInfo
     );
   },
   anji: te_gerna => {
