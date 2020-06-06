@@ -108,7 +108,7 @@ module.exports = {
     );
   },
   anji: te_gerna => {
-    return require("./ceha/anji.js")(te_gerna, module.exports.zeizei);
+    return require("./ceha/anji.js")(te_gerna, module.exports.zeizei, module.exports.romoi_lahi_cmaxes);
   },
   rotpaci: te_gerna => {
     return require("./ceha/zeizei.js").rotpaci(te_gerna);

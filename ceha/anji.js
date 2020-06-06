@@ -1,6 +1,6 @@
 // JavaScript Document
 const { jbopomofo } = require("./vrici.js")
-function anji(te_gerna, zeizei) {
+function anji(te_gerna, zeizei, gentufa) {
   const anji = [
     ["tohe claxu", "有"],
     ["tohe cliva", "出"], //without prefixes will come after
@@ -747,7 +747,8 @@ function anji(te_gerna, zeizei) {
     ["zei", "-"],
   ]
   let re
-  te_gerna = zeizei(te_gerna, true).map((valsi) => {
+  te_gerna = zeizei(te_gerna);
+  te_gerna = gentufa(te_gerna).kampu.filter(i=>i[0]!=='drata').map((valsi) => {
     if (valsi[0].indexOf("fu'ivla") >= 0 || valsi[0].indexOf("cmevla") >= 0)
       return jbopomofo(valsi[1])
     const match = anji.filter((j) => j[0] === valsi[1])[0]
