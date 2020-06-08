@@ -2,7 +2,6 @@
 const { jbopomofo } = require("./vrici.js")
 function anji(te_gerna, zeizei, gentufa) {
   const anji = [
-    ["tohe claxu", "有"],
     ["tohe cliva", "出"], //without prefixes will come after
     ["bacru", "講"],
     ["badna", "蕉"],
@@ -442,7 +441,7 @@ function anji(te_gerna, zeizei, gentufa) {
     ["polje", "摺"],
     ["polno", "波"],
     ["ponjo", "本"],
-    ["ponse", "有"],
+    ["ponse", "拥有"],
     ["porsi", "序"],
     ["prali", "利"],
     ["prami", "愛"],
@@ -701,7 +700,8 @@ function anji(te_gerna, zeizei, gentufa) {
     ["toho", "`自"],
     ["kahe", "`可"],
     ["ca", "同时"],
-    ["lo", "者"],
+    ["le", "者"],
+    ["le", "有"],
     ["la", "斯"],
     ["ce", "与"],
     ["johu", "与"],
