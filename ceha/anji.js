@@ -747,14 +747,40 @@ function anji(te_gerna, zeizei, gentufa) {
     ["zei", "-"],
   ]
   let re
-  te_gerna = zeizei(te_gerna);
-  te_gerna = gentufa(te_gerna).kampu.filter(i=>i[0]!=='drata').map((valsi) => {
-    if (valsi[0].indexOf("fu'ivla") >= 0 || valsi[0].indexOf("cmevla") >= 0)
-      return jbopomofo(valsi[1])
-    const match = anji.filter((j) => j[0] === valsi[1])[0]
-    if (match) return match[1]
-    return valsi[1]
-  }).join(" ")
+  te_gerna = zeizei(te_gerna)
+  te_gerna = gentufa(te_gerna).kampu
+  te_gerna = te_gerna.map((valsi, index) => {
+    if (valsi[0].indexOf("fu'ivla") >= 0 || valsi[0].indexOf("cmevla") >= 0) {
+      valsi[1] = jbopomofo(valsi[1])
+    } else {
+      const match = anji.filter((j) => j[0] === valsi[1])[0]
+      if (match) valsi[1] = match[1]
+    }
+    return [valsi[0], valsi[1]]
+  })
+  te_gerna = te_gerna
+    .filter((valsi, index) => {
+      if (
+        valsi[0] === "drata" &&
+        (
+          (te_gerna[index + 1] &&
+          (te_gerna[index + 1][0].indexOf("cmevla") >= 0 ||
+            te_gerna[index + 1][0].indexOf("fu'ivla") >= 0))
+            ||
+            (te_gerna[index - 1] &&
+              (te_gerna[index - 1][0].indexOf("cmevla") >= 0 ||
+                te_gerna[index - 1][0].indexOf("fu'ivla") >= 0))
+        )
+      )
+        return true
+      if (valsi[0] === "drata") return false
+      return true
+    })
+    .map((valsi) => {
+      if (valsi[0] === "drata") return " "
+      return valsi[1]
+    })
+    .join("")
 
   return te_gerna
 }
