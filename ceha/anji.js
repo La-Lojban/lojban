@@ -701,7 +701,7 @@ function anji(te_gerna, zeizei, gentufa) {
     ["kahe", "`可"],
     ["ca", "同时"],
     ["le", "者"],
-    ["le", "有"],
+    ["lo", "有"],
     ["la", "斯"],
     ["ce", "与"],
     ["johu", "与"],
