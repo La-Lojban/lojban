@@ -1,7 +1,7 @@
 // JavaScript Document
 function modzi(te_gerna, zeizei, gentufa, rawOutput) {
 	const modzi = {
-		"zei": "--",
+		"zei": "↔",
 		"jbari": "🍓",
 		"ba": "🔮",
 		"ciska": "✍",
