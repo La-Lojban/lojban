@@ -110,6 +110,9 @@ module.exports = {
   anji: te_gerna => {
     return require("./ceha/anji.js")(te_gerna, module.exports.zeizei, module.exports.romoi_lahi_cmaxes);
   },
+  modzi: (te_gerna, rawOutput) => {
+    return require("./ceha/modzi.js")(te_gerna, module.exports.zeizei, module.exports.romoi_lahi_cmaxes,rawOutput);
+  },
   rotpaci: te_gerna => {
     return require("./ceha/zeizei.js").rotpaci(te_gerna);
   },

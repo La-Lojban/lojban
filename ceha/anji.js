@@ -1351,7 +1351,6 @@ function anji(te_gerna, zeizei, gentufa) {
     "zutse": "坐",
     "zvati": "莅"
   }
-  let re
   te_gerna = zeizei(te_gerna)
   te_gerna = gentufa(te_gerna).kampu
   te_gerna = te_gerna.map((valsi, index) => {
