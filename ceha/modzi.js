@@ -1433,7 +1433,7 @@ function modzi(te_gerna, zeizei, gentufa, rawOutput) {
 	te_gerna = zeizei(te_gerna)
 	te_gerna = gentufa(te_gerna).kampu
 	te_gerna = te_gerna.map((valsi, index) => {
-		valsi[1] = modzi[valsi[1]] || valsi[1]
+		valsi[1] = modzi[valsi[1]] || " " + valsi[1]
 		return [valsi[0], valsi[1]]
 	})
 	te_gerna = te_gerna
@@ -1456,7 +1456,7 @@ function modzi(te_gerna, zeizei, gentufa, rawOutput) {
 			if (valsi[0] === "drata") return " "
 			return valsi[1]
 		})
-			.join("")
+			.join("").trim()
 
 	return te_gerna
 }
