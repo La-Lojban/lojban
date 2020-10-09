@@ -128,7 +128,7 @@ function modzi(te_gerna, zeizei, gentufa, rawOutput) {
 
 
 
-
+		"co'a": "▶️",
 
 
 		"zmadu": ">",
@@ -238,7 +238,7 @@ function modzi(te_gerna, zeizei, gentufa, rawOutput) {
 
 
 		"de": "Ⓑ",
-
+		"rinka": "🌟",
 
 
 		"cu'i": "😐",
@@ -365,7 +365,7 @@ function modzi(te_gerna, zeizei, gentufa, rawOutput) {
 
 
 		"bacru": "🎤",
-
+		"mo'u": "⏹",
 		"lisri": "🎞",
 		"nanmu": "👨",
 
@@ -404,7 +404,7 @@ function modzi(te_gerna, zeizei, gentufa, rawOutput) {
 
 		"sance": "🔉",
 		"temci": "🕰",
-		"co'u": "⏹",
+		"co'u": "⏏️",
 
 
 
@@ -1086,7 +1086,7 @@ function modzi(te_gerna, zeizei, gentufa, rawOutput) {
 		"tcita": "🏷",
 
 
-
+		"cupra": "🎬",
 
 
 
