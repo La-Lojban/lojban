@@ -13,8 +13,7 @@
     "fast-xml-parser": "^3.17.4",
     "he": "^1.2.0",
     "path-extra": "^4.3.0",
-    "ramda": "^0.27.1",
-    "then-request": "^6.0.2"
+    "ramda": "^0.27.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
