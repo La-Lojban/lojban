@@ -358,22 +358,17 @@ const galfi = (response, bangu, data, akti) => {
   }
 };
 
-const wiktionary = (te_gerna, bangu, akti) => {
+const wiktionary = (te_gerna, vefanva, akti) => {
   const urli = "https://en.wiktionary.org/w/api.php?format=json&action=query&titles={valsi}&rvprop=content&prop=revisions&redirects=1&callback=?".replace(
     "{valsi}",
     require("querystring").escape(te_gerna)
   );
-  const options = {
-    headers: {
-      "User-Agent": "then-request"
-    }
-  };
   const encoding = "utf8";
-  require("then-request")("GET", urli, options).then(function(se_spusku) {
+  require("axios").get(urli).then(function(sespusku) {
     galfi(
-      se_spusku,
-      bangu,
-      encoding ? se_spusku.body.toString(encoding) : se_spusku.body,
+      sespusku,
+      vefanva,
+      encoding ? sespusku.body.toString(encoding) : sespusku.body,
       akti
     );
   });
