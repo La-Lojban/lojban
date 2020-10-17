@@ -253,18 +253,6 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
   return target;
 };
 
-const zmifanva = (te_gerna, fanva, akti) => {
-  const behe = require("then-request");
-  const urli = `http://lojban.lilyx.net/zmifanva/?src=${te_gerna}&dir=${fanva}`;
-  behe("GET", urli).then(se_spusku => {
-    if (se_spusku.statusCode === 200) {
-      const re = /<textarea rows=\"8\" cols=\"40\">(.*?)<\/textarea>/;
-      const match = re.exec(se_spusku.body.toString("utf8").replace(/\n/g, ""));
-      akti(match[1] || "O_0");
-    }
-  });
-};
-
 const galfi = (response, bangu, data, akti) => {
   if (response.statusCode == 200) {
     const rule = /^.*?(\{.*\}).*?$/m;
@@ -453,7 +441,6 @@ const rafsi_giho_nai_se_rafsi = (word, jsonDoc, xugismu) => {
 
 module.exports = {
   gloss,
-  zmifanva,
   wiktionary,
   selmaho,
   rafsi,

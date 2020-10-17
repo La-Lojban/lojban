@@ -134,9 +134,6 @@ module.exports = {
       jsonDoc
     );
   },
-  zmifanva: (te_gerna, fanva, akti) => {
-    require("./bangu/english.js").zmifanva(te_gerna, fanva, akti);
-  },
   wiktionary: (te_gerna, bangu, akti) => {
     require("./bangu/english.js").wiktionary(te_gerna, bangu, akti);
   }

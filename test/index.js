@@ -103,12 +103,6 @@ describe('#gloss', function() {
   });
 });
 
-describe('#zmifanva', function() {
-  it('should zmifanva for "coi ro do" as "Hi, everybody."', function() {
-    return lojban.zmifanva("coi ro do","jb2en",function(m) { chai_expect(m).to.equal('Hi, everybody.');})
-  });
-});
-
 describe('#wiktionary', function() {
   it('should wiktionary for "coi" as "coi\nCmavo: hello, greetings\n"', function() {
     lojban.wiktionary("coi","Lojban",function(m){chai_expect(m).to.equal('coi\nCmavo: hello, greetings\n');});
