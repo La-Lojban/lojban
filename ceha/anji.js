@@ -2,6 +2,8 @@
 const { jbopomofo } = require("./vrici.js")
 function anji(te_gerna, zeizei, gentufa) {
   const anji = {
+    nu: "着",
+    ka: "性",
     jihi: "～",
     mo: "呢",
     ma: "哪",
