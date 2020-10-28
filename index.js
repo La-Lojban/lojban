@@ -46,6 +46,12 @@ module.exports = {
   selmaho: ({ word, jsonDoc }) => {
     return require("./bangu/english.js").selmaho({ word, jsonDoc });
   },
+  word: ({ word, jsonDoc }) => {
+    return require("./bangu/english.js").word({ word, jsonDoc });
+  },
+  dump: ({ word, doc }) => {
+    return require("./bangu/english.js").fastParse({ word, doc });
+  },
   rafsi_giho_nai_se_rafsi: (valsi, jsonDoc) => {
     return require("./bangu/english.js").rafsi_giho_nai_se_rafsi(
       valsi,

@@ -125,7 +125,8 @@ function jsonDocDirection(jsonDoc) {
   return jsonDoc.dictionary.direction[0] || jsonDoc.dictionary.direction;
 }
 
-function fastParse(jsonDoc, bangu = "en") {
+function fastParse({doc: jsonDoc, bangu}) {
+  bangu = bangu || 'en'
   if (jsonDoc) return jsonDoc;
   const fs = require("fs");
   const path = require("path-extra");
@@ -151,7 +152,7 @@ function fastParse(jsonDoc, bangu = "en") {
 const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
   te_gerna = te_gerna
     .replace(/\"/g, "");
-  jsonDoc = fastParse(jsonDoc, bangu);
+  jsonDoc = fastParse({doc: jsonDoc, bangu});
   let i, myregexp, j;
   if (gentufa) {
     const parsed = gentufa(te_gerna, ' ', true);
@@ -390,9 +391,15 @@ const wiktionary = (te_gerna, bangu, akti) => {
     );
   });
 };
+const word = ({ word, jsonDoc, bangu }) => {
+  bangu =bangu || 'en'
+  jsonDoc = fastParse({doc: jsonDoc, bangu});
+  const words = jsonDocDirection(jsonDoc).valsi.filter(v => v.word === word);
+  return words;
+};
 
 const selmaho = ({ word, jsonDoc }) => {
-  jsonDoc = fastParse(jsonDoc);
+  jsonDoc = fastParse({doc: jsonDoc, bangu});
   word = word.toLowerCase();
   let r = { full: [], partial: [] };
   const words = jsonDocDirection(jsonDoc).valsi.filter(v => {
@@ -411,7 +418,7 @@ const selmaho = ({ word, jsonDoc }) => {
 };
 
 const rafsi = (word, jsonDoc, xugismu) => {
-  jsonDoc = fastParse(jsonDoc);
+  jsonDoc = fastParse({doc: jsonDoc, bangu});
   let rafsi = [];
   let selrafsi = [];
   const valsi = jsonDocDirection(jsonDoc).valsi;
@@ -457,5 +464,7 @@ module.exports = {
   wiktionary,
   selmaho,
   rafsi,
+  word,
+  fastParse,
   rafsi_giho_nai_se_rafsi
 };
