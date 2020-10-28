@@ -254,18 +254,6 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
   return target;
 };
 
-const zmifanva = (te_gerna, fanva, akti) => {
-  const behe = require("then-request");
-  const urli = `http://lojban.lilyx.net/zmifanva/?src=${te_gerna}&dir=${fanva}`;
-  behe("GET", urli).then(se_spusku => {
-    if (se_spusku.statusCode === 200) {
-      const re = /<textarea rows=\"8\" cols=\"40\">(.*?)<\/textarea>/;
-      const match = re.exec(se_spusku.body.toString("utf8").replace(/\n/g, ""));
-      akti(match[1] || "O_0");
-    }
-  });
-};
-
 const galfi = (response, bangu, data, akti) => {
   if (response.statusCode == 200) {
     const rule = /^.*?(\{.*\}).*?$/m;
@@ -371,22 +359,17 @@ const galfi = (response, bangu, data, akti) => {
   }
 };
 
-const wiktionary = (te_gerna, bangu, akti) => {
+const wiktionary = (te_gerna, vefanva, akti) => {
   const urli = "https://en.wiktionary.org/w/api.php?format=json&action=query&titles={valsi}&rvprop=content&prop=revisions&redirects=1&callback=?".replace(
     "{valsi}",
     require("querystring").escape(te_gerna)
   );
-  const options = {
-    headers: {
-      "User-Agent": "then-request"
-    }
-  };
   const encoding = "utf8";
-  require("then-request")("GET", urli, options).then(function(se_spusku) {
+  require("axios").get(urli).then(function(sespusku) {
     galfi(
-      se_spusku,
-      bangu,
-      encoding ? se_spusku.body.toString(encoding) : se_spusku.body,
+      sespusku,
+      vefanva,
+      encoding ? sespusku.body.toString(encoding) : sespusku.body,
       akti
     );
   });
@@ -460,7 +443,6 @@ const rafsi_giho_nai_se_rafsi = (word, jsonDoc, xugismu) => {
 
 module.exports = {
   gloss,
-  zmifanva,
   wiktionary,
   selmaho,
   rafsi,

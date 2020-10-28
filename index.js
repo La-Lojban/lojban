@@ -116,6 +116,9 @@ module.exports = {
   anji: te_gerna => {
     return require("./ceha/anji.js")(te_gerna, module.exports.zeizei, module.exports.romoi_lahi_cmaxes);
   },
+  modzi: (te_gerna, rawOutput) => {
+    return require("./ceha/modzi.js")(te_gerna, module.exports.zeizei, module.exports.romoi_lahi_cmaxes,rawOutput);
+  },
   rotpaci: te_gerna => {
     return require("./ceha/zeizei.js").rotpaci(te_gerna);
   },
@@ -136,9 +139,6 @@ module.exports = {
       gentufa,
       jsonDoc
     );
-  },
-  zmifanva: (te_gerna, fanva, akti) => {
-    require("./bangu/english.js").zmifanva(te_gerna, fanva, akti);
   },
   wiktionary: (te_gerna, bangu, akti) => {
     require("./bangu/english.js").wiktionary(te_gerna, bangu, akti);

@@ -2,6 +2,84 @@
 const { jbopomofo } = require("./vrici.js")
 function anji(te_gerna, zeizei, gentufa) {
   const anji = {
+    nu: "着",
+    ka: "性",
+    jihi: "～",
+    mo: "呢",
+    ma: "哪",
+    no: "〇",
+    pa: "一",
+    re: "二",
+    ci: "三",
+    vo: "四",
+    mu: "五",
+    xa: "六",
+    ze: "七",
+    bi: "八",
+    so: "九",
+    sohi: "多",
+    sohu: "少",
+    mi: "我",
+    do: "你",
+    ko: "你吧",
+    ra: "他",
+    ti: "这",
+    ta: "那",
+    ma: "什么",
+    paho: "`镜",
+    "se piho": "`以",
+    cohi: "了",
+    faha: "`到",
+    toho: "`自",
+    kahe: "`可",
+    ca: "同时",
+    le: "者",
+    lo: "有",
+    la: "斯",
+    ce: "与",
+    johu: "与",
+    se: "被",
+    jai: "给",
+    je: "、",
+    e: "、",
+    gihe: "、是",
+    ja: "或者",
+    giha: "或者",
+    jaha: "是",
+    na: "不",
+    tohe: "没",
+    cu: "是",
+    ku: "，",
+    vau: "；",
+    i: "。",
+    lu: "‘",
+    lihu: "’",
+    lohu: "“",
+    lehu: "”",
+    ua: "唉",
+    ue: "啊",
+    uhe: "哇",
+    oi: "哎喲",
+    "ihe nai": "叽",
+    uhi: "哈",
+    uu: "咳",
+    ehe: "嗨哟",
+    "eha nai": "别",
+    kohoi: "吧",
+    xu: "吗",
+    ohi: "呕",
+    ie: "诶",
+    "oi sehi": "嘚",
+    iho: "啧",
+    "ia nai": "嗬",
+    poho: "只",
+    leho: "吓",
+    kuhi: "但是",
+    coi: "嗨",
+    juhi: "哎",
+    rehi: "喂",
+    doi: "兮",
+    zei: "-",
     "tohe cliva": "出", //without prefixes will come after
     "so'i": "许多",
     "so'e": "多数",
@@ -1351,14 +1429,13 @@ function anji(te_gerna, zeizei, gentufa) {
     "zutse": "坐",
     "zvati": "莅"
   }
-  let re
   te_gerna = zeizei(te_gerna)
   te_gerna = gentufa(te_gerna).kampu
   te_gerna = te_gerna.map((valsi, index) => {
     if (valsi[0].indexOf("fu'ivla") >= 0 || valsi[0].indexOf("cmevla") >= 0) {
       valsi[1] = jbopomofo(valsi[1])
     } else {
-      valsi[1] = anji[valsi[1]] || valsi[1]
+      valsi[1] = anji[valsi[1]] || (" " + valsi[1])
     }
     return [valsi[0], valsi[1]]
   })
@@ -1381,7 +1458,7 @@ function anji(te_gerna, zeizei, gentufa) {
       if (valsi[0] === "drata") return " "
       return valsi[1]
     })
-    .join("")
+    .join("").trim()
 
   return te_gerna
 }
