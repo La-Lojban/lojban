@@ -7,7 +7,7 @@ module.exports = {
       return { tcini: "fliba", "te spuda": e, kampu: e.toString() };
     }
   },
-  cmaxes: ({te_gerna, versiio='index'}) => {
+  cmaxes: ({ te_gerna, versiio = 'index' }) => {
     try {
       const terspuda = require(`./cmaxes/${versiio}.js`).parse(te_gerna);
       return { tcini: "snada", "te spuda": terspuda, kampu: terspuda };
@@ -36,11 +36,12 @@ module.exports = {
   jvokaha_gui: valsi => {
     return require("./sozysozbot_jvozba").jvokaha_gui(valsi);
   },
-  rafsi: (valsi, jsonDoc) => {
+  rafsi: (valsi, jsonDoc, bangu) => {
     return require("./bangu/english.js").rafsi(
       valsi,
       jsonDoc,
-      module.exports.xugismu
+      module.exports.xugismu,
+      bangu
     );
   },
   selmaho: ({ word, jsonDoc }) => {
@@ -52,11 +53,12 @@ module.exports = {
   dump: ({ word, doc }) => {
     return require("./bangu/english.js").fastParse({ word, doc });
   },
-  rafsi_giho_nai_se_rafsi: (valsi, jsonDoc) => {
+  rafsi_giho_nai_se_rafsi: (valsi, jsonDoc, bangu) => {
     return require("./bangu/english.js").rafsi_giho_nai_se_rafsi(
       valsi,
       jsonDoc,
-      module.exports.xugismu
+      module.exports.xugismu,
+      bangu
     );
   },
   xulujvo: te_gerna => {
@@ -101,7 +103,7 @@ module.exports = {
       return { tcini: "fliba", "te spuda": e, kampu: e.toString() };
     }
   },
-  zeizei: (te_gerna, 
+  zeizei: (te_gerna,
     returnFullInfo) => {
     return require("./ceha/zeizei.js").zeizei(
       te_gerna,
@@ -117,7 +119,7 @@ module.exports = {
     return require("./ceha/anji.js")(te_gerna, module.exports.zeizei, module.exports.romoi_lahi_cmaxes);
   },
   modzi: (te_gerna, rawOutput) => {
-    return require("./ceha/modzi.js")(te_gerna, module.exports.zeizei, module.exports.romoi_lahi_cmaxes,rawOutput);
+    return require("./ceha/modzi.js")(te_gerna, module.exports.zeizei, module.exports.romoi_lahi_cmaxes, rawOutput);
   },
   rotpaci: te_gerna => {
     return require("./ceha/zeizei.js").rotpaci(te_gerna);

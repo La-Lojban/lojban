@@ -400,7 +400,8 @@ const selmaho = ({ word, jsonDoc }) => {
   return r;
 };
 
-const rafsi = (word, jsonDoc, xugismu) => {
+const rafsi = (word, jsonDoc, xugismu, bangu) => {
+  bangu = bangu || 'en'
   jsonDoc = fastParse({doc: jsonDoc, bangu});
   let rafsi = [];
   let selrafsi = [];
@@ -434,10 +435,10 @@ const rafsi = (word, jsonDoc, xugismu) => {
   return { rafsi, selrafsi };
 };
 
-const rafsi_giho_nai_se_rafsi = (word, jsonDoc, xugismu) => {
+const rafsi_giho_nai_se_rafsi = (word, jsonDoc, xugismu, bangu) => {
   return {
     valsi: word,
-    ...rafsi(word, jsonDoc, xugismu)
+    ...rafsi(word, jsonDoc, xugismu,bangu)
   };
 };
 
