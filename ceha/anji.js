@@ -80,7 +80,8 @@ function anji(te_gerna, zeizei, gentufa) {
     rehi: "喂",
     doi: "兮",
     zei: "-",
-    "tohe cliva": "出", //without prefixes will come after
+    "tohe cliva": "出",
+    //without prefixes will come after
     "so'i": "许多",
     "so'e": "多数",
     "so'a": "差不多",
