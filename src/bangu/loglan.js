@@ -1432,20 +1432,22 @@ const items = [
   ["zinki", "zinko"],
   ["ctebi", "zlupi"],
   ["bartu", "zvoto"],
-  ["mi", "mi"] //dont copy
-];
+  ["mi", "mi"], //dont copy
+]
 
 function lojban2loglan(text, gentufa) {
-  text = text.toLowerCase().replace(/[^a-z'\. ]/g, "");
-  let i, myregexp, j;
-  const tree = gentufa(text);
-  if (tree.tcini === "fliba") return "";
-  text = tree["kampu"].map(a => a[1].replace(/-/g, "")).filter(a => a !== " ");
+  text = text.toLowerCase().replace(/[^a-z'\. ]/g, "")
+  let i, myregexp, j
+  const tree = gentufa(text)
+  if (tree.tcini === "fliba") return ""
+  text = tree["kampu"]
+    .map((a) => a[1].replace(/-/g, ""))
+    .filter((a) => a !== " ")
   for (i = 0; i < items.length; i++) {
-    myregexp = new RegExp(`^${items[i][0]}$`, "gm");
+    myregexp = new RegExp(`^${items[i][0]}$`, "gm")
     for (j = 0; j < text.length; j++) {
       if (text[j].match(myregexp) !== null) {
-        text[j] = items[i][1].replace(/ /gm, "A ").replace(/$/gm, "A");
+        text[j] = items[i][1].replace(/ /gm, "A ").replace(/$/gm, "A")
       }
     }
   }
@@ -1454,19 +1456,19 @@ function lojban2loglan(text, gentufa) {
     .replace(/ /gm, "* ")
     .replace(/$/gm, "*")
     .replace(/A\*/gm, "")
-    .replace(/A$/gm, "");
-  return text;
+    .replace(/A$/gm, "")
+  return text
 }
 
 function loglan2lojban(text) {
-  text = text.toLowerCase().replace(/[^a-z'\. ]/g, "");
-  let i, myregexp, j;
-  text = text.split(" ");
+  text = text.toLowerCase().replace(/[^a-z'\. ]/g, "")
+  let i, myregexp, j
+  text = text.split(" ")
   for (i = 0; i < items.length; i++) {
-    myregexp = new RegExp(`^${items[i][1]}$`, "gm");
+    myregexp = new RegExp(`^${items[i][1]}$`, "gm")
     for (j = 0; j < text.length; j++) {
       if (text[j].match(myregexp) !== null) {
-        text[j] = items[i][0].replace(/ /gm, "A ").replace(/$/gm, "A");
+        text[j] = items[i][0].replace(/ /gm, "A ").replace(/$/gm, "A")
       }
     }
   }
@@ -1475,8 +1477,8 @@ function loglan2lojban(text) {
     .replace(/ /gm, "* ")
     .replace(/$/gm, "*")
     .replace(/A\*/gm, "")
-    .replace(/A$/gm, "");
-  return text;
+    .replace(/A$/gm, "")
+  return text
 }
 
-module.exports = { lojban2loglan, loglan2lojban };
+module.exports = { lojban2loglan, loglan2lojban }
