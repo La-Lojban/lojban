@@ -1,12 +1,9 @@
-FROM ubuntu:rolling
+FROM alpine:latest
 
-RUN apt-get update
-
-RUN apt-get install -y build-essential software-properties-common curl
-
-RUN apt-get install -y nodejs npm
+RUN apk add --no-cache bash
+RUN apk add --update nodejs npm
 
 RUN mkdir /lojban_npm
 COPY src/package*.json /lojban_npm/
 WORKDIR /lojban_npm
-RUN npm i ; npm install mocha -g
+RUN npm i ; npm i -g mocha ; npm i -g npm-check-updates

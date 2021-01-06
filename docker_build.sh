@@ -1,3 +1,3 @@
 #!/bin/bash
 
-podman build -t lojban_npm .
+docker build -t lojban_npm .
