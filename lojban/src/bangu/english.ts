@@ -1,7 +1,4 @@
-import R = require("ramda")
-import { decode } from "he"
-import { readFileSync } from "fs-extra"
-import { parse } from "fast-xml-parser"
+import * as R from "ramda";
 import axios from "axios"
 import { escape } from "querystring"
 import { cllk } from "./cll"
@@ -133,20 +130,7 @@ function jsonDocDirection(jsonDoc: any) {
 export function fastParse({ doc, bangu }: { doc: any; bangu?: string }) {
   bangu = bangu ?? "en"
   if (doc) return doc
-  const dump = readFileSync(`${__dirname}/../../assets/dumps/${bangu}.xml`, {
-    encoding: "utf8",
-  })
-    .replace(/(&lt;|<)script.*?(&gt;|>).*?(&lt;|<)/g, "&lt;")
-    .replace(/(&lt;|<)\/script(&gt;|>)/g, "")
-  return parse(dump, {
-    attributeNamePrefix: "",
-    ignoreAttributes: false,
-    allowBooleanAttributes: false,
-    parseNodeValue: false,
-    parseAttributeValue: false,
-    attrValueProcessor: (a: any) => decode(a, { isAttributeValue: true }),
-    tagValueProcessor: (a: any) => decode(a),
-  })
+  return require('../assets/dumps/en.json')
 }
 
 export const gloss = (

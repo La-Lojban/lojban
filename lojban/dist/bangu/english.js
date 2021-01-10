@@ -2,9 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.rafsi_giho_nai_se_rafsi = exports.rafsi = exports.selmaho = exports.word = exports.wiktionary = exports.gloss = exports.fastParse = void 0;
 const R = require("ramda");
-const he_1 = require("he");
-const fs_extra_1 = require("fs-extra");
-const fast_xml_parser_1 = require("fast-xml-parser");
 const axios_1 = require("axios");
 const querystring_1 = require("querystring");
 const cll_1 = require("./cll");
@@ -133,20 +130,7 @@ function fastParse({ doc, bangu }) {
     bangu = bangu !== null && bangu !== void 0 ? bangu : "en";
     if (doc)
         return doc;
-    const dump = fs_extra_1.readFileSync(`${__dirname}/../../assets/dumps/${bangu}.xml`, {
-        encoding: "utf8",
-    })
-        .replace(/(&lt;|<)script.*?(&gt;|>).*?(&lt;|<)/g, "&lt;")
-        .replace(/(&lt;|<)\/script(&gt;|>)/g, "");
-    return fast_xml_parser_1.parse(dump, {
-        attributeNamePrefix: "",
-        ignoreAttributes: false,
-        allowBooleanAttributes: false,
-        parseNodeValue: false,
-        parseAttributeValue: false,
-        attrValueProcessor: (a) => he_1.decode(a, { isAttributeValue: true }),
-        tagValueProcessor: (a) => he_1.decode(a),
-    });
+    return require('../assets/dumps/en.json');
 }
 exports.fastParse = fastParse;
 const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
