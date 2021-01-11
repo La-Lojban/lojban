@@ -13,6 +13,8 @@ import {
 } from "./cmaxes/xuvalsi"
 import {parse as romoi_lahi_cmaxes_parse} from './cmaxes/cmaxes'
 import { zeizei as zeizei_local, rotpaci as rotpaci_local } from "./ceha/zeizei"
+import {anji as anji_local} from './ceha/anji'
+import {modzi as modzi_local} from './ceha/modzi'
 
 export const romoi_lahi_cmaxes = (te_gerna: string) => {
   try {
@@ -30,7 +32,7 @@ export const cmaxes = ({
   versiio: string
 }) => {
   try {
-    const terspuda = require(`./src/cmaxes/${versiio}`).parse(te_gerna)
+    const terspuda = romoi_lahi_cmaxes_parse(te_gerna)
     return { tcini: "snada", "te spuda": terspuda, kampu: terspuda }
   } catch (e) {
     return { tcini: "fliba", "te spuda": e, kampu: e.toString() }
@@ -106,7 +108,7 @@ export function ilmentufa_exp(te_gerna: any, mode: any, preprocess: any) {
     return { tcini: "fliba", "te spuda": e, kampu: e.toString() }
   }
 }
-export const zeizei = (te_gerna: any, returnFullInfo: any) =>
+export const zeizei = (te_gerna: any, returnFullInfo?: any) =>
   zeizei_local(
     te_gerna,
     romoi_lahi_cmaxes,
@@ -118,10 +120,10 @@ export const zeizei = (te_gerna: any, returnFullInfo: any) =>
   )
 
 export const anji = (te_gerna: string) =>
-  require("./ceha/anji")(te_gerna, zeizei, romoi_lahi_cmaxes)
+  anji_local(te_gerna, zeizei, romoi_lahi_cmaxes)
 
 export const modzi = (te_gerna: any, rawOutput: any) =>
-  require("./ceha/modzi")(te_gerna, zeizei, romoi_lahi_cmaxes, rawOutput)
+  modzi_local(te_gerna, zeizei, romoi_lahi_cmaxes, rawOutput)
 
 export const rotpaci = (te_gerna: string) => rotpaci_local(te_gerna)
 

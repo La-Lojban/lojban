@@ -800,12 +800,12 @@ function modzi(te_gerna, zeizei, gentufa, rawOutput) {
         cpedu: "🙏",
     };
     te_gerna = zeizei(te_gerna);
-    te_gerna = gentufa(te_gerna).kampu;
-    te_gerna = te_gerna.map((valsi, index) => {
+    let arr_te_gerna = gentufa(te_gerna).kampu;
+    arr_te_gerna = arr_te_gerna.map((valsi, index) => {
         valsi[1] = modzi[valsi[1]] || " " + valsi[1];
         return [valsi[0], valsi[1]];
     });
-    te_gerna = te_gerna.filter((valsi, index) => {
+    arr_te_gerna = arr_te_gerna.filter((valsi, index) => {
         if (valsi[0] === "drata" &&
             ((te_gerna[index + 1] &&
                 (te_gerna[index + 1][0].indexOf("cmevla") >= 0 ||
@@ -819,7 +819,7 @@ function modzi(te_gerna, zeizei, gentufa, rawOutput) {
         return true;
     });
     if (!rawOutput)
-        return te_gerna
+        return arr_te_gerna
             .map((valsi) => {
             if (valsi[0] === "drata")
                 return " ";

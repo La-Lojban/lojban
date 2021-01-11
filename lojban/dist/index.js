@@ -7,6 +7,8 @@ const sozysozbot_jvozba_1 = require("./sozysozbot_jvozba");
 const xuvalsi_1 = require("./cmaxes/xuvalsi");
 const cmaxes_1 = require("./cmaxes/cmaxes");
 const zeizei_1 = require("./ceha/zeizei");
+const anji_1 = require("./ceha/anji");
+const modzi_1 = require("./ceha/modzi");
 const romoi_lahi_cmaxes = (te_gerna) => {
     try {
         const terspuda = cmaxes_1.parse(te_gerna);
@@ -19,7 +21,7 @@ const romoi_lahi_cmaxes = (te_gerna) => {
 exports.romoi_lahi_cmaxes = romoi_lahi_cmaxes;
 const cmaxes = ({ te_gerna, versiio = "index", }) => {
     try {
-        const terspuda = require(`./src/cmaxes/${versiio}`).parse(te_gerna);
+        const terspuda = cmaxes_1.parse(te_gerna);
         return { tcini: "snada", "te spuda": terspuda, kampu: terspuda };
     }
     catch (e) {
@@ -83,9 +85,9 @@ function ilmentufa_exp(te_gerna, mode, preprocess) {
 exports.ilmentufa_exp = ilmentufa_exp;
 const zeizei = (te_gerna, returnFullInfo) => zeizei_1.zeizei(te_gerna, exports.romoi_lahi_cmaxes, sozysozbot_jvozba_1.jvokaha_gui, xuvalsi_1.xulujvo, sozysozbot_jvozba_1.jvokaha, sozysozbot_jvozba_1.search_selrafsi_from_rafsi2, returnFullInfo);
 exports.zeizei = zeizei;
-const anji = (te_gerna) => require("./ceha/anji")(te_gerna, exports.zeizei, exports.romoi_lahi_cmaxes);
+const anji = (te_gerna) => anji_1.anji(te_gerna, exports.zeizei, exports.romoi_lahi_cmaxes);
 exports.anji = anji;
-const modzi = (te_gerna, rawOutput) => require("./ceha/modzi")(te_gerna, exports.zeizei, exports.romoi_lahi_cmaxes, rawOutput);
+const modzi = (te_gerna, rawOutput) => modzi_1.modzi(te_gerna, exports.zeizei, exports.romoi_lahi_cmaxes, rawOutput);
 exports.modzi = modzi;
 const rotpaci = (te_gerna) => zeizei_1.rotpaci(te_gerna);
 exports.rotpaci = rotpaci;

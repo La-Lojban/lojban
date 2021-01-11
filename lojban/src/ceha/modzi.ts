@@ -1,7 +1,13 @@
 export function modzi(
-  te_gerna: any[],
-  zeizei: (arg0: any) => any,
-  gentufa: (arg0: any) => { (): any; new (): any; kampu: any },
+  te_gerna: string,
+  zeizei: (te_gerna: any, returnFullInfo?: any) => any,
+  gentufa: (
+    te_gerna: string
+  ) => {
+    tcini: string
+    "te spuda": any
+    kampu: any
+  },
   rawOutput: any
 ) {
   const modzi: any = {
@@ -802,12 +808,12 @@ export function modzi(
     cpedu: "🙏",
   }
   te_gerna = zeizei(te_gerna)
-  te_gerna = gentufa(te_gerna).kampu
-  te_gerna = te_gerna.map((valsi, index) => {
+  let arr_te_gerna = gentufa(te_gerna).kampu
+  arr_te_gerna = arr_te_gerna.map((valsi: any[], index: any) => {
     valsi[1] = modzi[valsi[1]] || " " + valsi[1]
     return [valsi[0], valsi[1]]
   })
-  te_gerna = te_gerna.filter((valsi, index) => {
+  arr_te_gerna = arr_te_gerna.filter((valsi: string[], index: number) => {
     if (
       valsi[0] === "drata" &&
       ((te_gerna[index + 1] &&
@@ -822,8 +828,8 @@ export function modzi(
     return true
   })
   if (!rawOutput)
-    return te_gerna
-      .map((valsi) => {
+    return arr_te_gerna
+      .map((valsi: any[]) => {
         if (valsi[0] === "drata") return " "
         return valsi[1]
       })

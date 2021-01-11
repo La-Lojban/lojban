@@ -1,8 +1,14 @@
 import { jbopomofo } from "./vrici"
 export function anji(
-  te_gerna: any[],
-  zeizei: (arg0: any) => any,
-  gentufa: (arg0: any) => { (): any; new (): any; kampu: any }
+  te_gerna: string,
+  zeizei: (te_gerna: any, returnFullInfo?: any) => any,
+  gentufa: (
+    te_gerna: string
+  ) => {
+    tcini: string
+    "te spuda": any
+    kampu: any
+  }
 ) {
   const anji: any = {
     nu: "着",
@@ -1434,8 +1440,8 @@ export function anji(
     zvati: "莅",
   }
   te_gerna = zeizei(te_gerna)
-  te_gerna = gentufa(te_gerna).kampu
-  te_gerna = te_gerna.map((valsi, index) => {
+  let arr_te_gerna = gentufa(te_gerna).kampu
+  arr_te_gerna = arr_te_gerna.map((valsi: any[], index: any) => {
     if (valsi[0].indexOf("fu'ivla") >= 0 || valsi[0].indexOf("cmevla") >= 0) {
       valsi[1] = jbopomofo(valsi[1])
     } else {
@@ -1443,8 +1449,8 @@ export function anji(
     }
     return [valsi[0], valsi[1]]
   })
-  return te_gerna
-    .filter((valsi, index) => {
+  return arr_te_gerna
+    .filter((valsi: string[], index: number) => {
       if (
         valsi[0] === "drata" &&
         ((te_gerna[index + 1] &&
@@ -1458,7 +1464,7 @@ export function anji(
       if (valsi[0] === "drata") return false
       return true
     })
-    .map((valsi) => {
+    .map((valsi: any[]) => {
       if (valsi[0] === "drata") return " "
       return valsi[1]
     })
