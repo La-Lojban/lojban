@@ -5,6 +5,7 @@ const R = require("ramda");
 const axios_1 = require("axios");
 const querystring_1 = require("querystring");
 const cll_1 = require("./cll");
+const sozysozbot_jvozba_1 = require("../sozysozbot_jvozba");
 const items = {
     a: "and/or",
     ba: "in-future",
@@ -139,7 +140,7 @@ function fastParse({ doc, bangu }) {
     return require('../../dist/assets/dumps/en.json');
 }
 exports.fastParse = fastParse;
-const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
+function gloss(te_gerna, bangu = "en", gentufa, jsonDoc) {
     te_gerna = te_gerna.replace(/\"/g, "");
     jsonDoc = fastParse({ doc: jsonDoc, bangu });
     if (gentufa) {
@@ -160,7 +161,8 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
             lItems.push([i.split(","), items[i]]);
         });
     Object.keys(universalItems).forEach((i) => {
-        lItems.push([i.split(","), universalItems[i]]);
+        if (lItems.filter(([key]) => key.join(",") == i).length === 0)
+            lItems.push([i.split(","), universalItems[i]]);
     });
     let targetProcessed = target.map(i => ({ processed: false, word: i }));
     const lItemsVersions = [{ type: 'string', value: lItems.filter(([, value]) => typeof value === 'string') }, { type: 'function', value: lItems.filter(([, value]) => value instanceof Function) }];
@@ -169,7 +171,7 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
             const word = target[j];
             const match = lItemsSubSet.value
                 .filter(([key]) => (JSON.stringify(target.slice(j, j + key.length)) === JSON.stringify(key)))
-                .sort((a, b) => (a[0].length > b[0].length) ? -1 : -1)[0];
+                .sort((a, b) => (a[0].length >= b[0].length) ? -1 : -1)[0];
             if (match) {
                 const [key, value] = match;
                 if (value instanceof Function) {
@@ -184,22 +186,30 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
                 continue;
             }
             if (lItemsSubSet.type === 'string') {
-                let gloss;
+                let glossWord;
                 const valsi = jsonDocDirection(jsonDoc).valsi.filter((v) => v.word === word);
                 if (valsi[0]) {
                     const v = valsi[0];
-                    gloss =
+                    glossWord =
                         R.path(["glossword", "word"], v) ||
                             R.path(["glossword", 0, "word"], v) ||
                             R.path(["keyword", "word"], v);
-                    if (!gloss && v.keyword && Array.isArray(v.keyword)) {
+                    if (!glossWord && v.keyword && Array.isArray(v.keyword)) {
                         const c = v.keyword.filter((k) => k.word === word && k.place === "1");
                         if (c[0])
-                            gloss = c[0].word;
+                            glossWord = c[0].word;
                     }
                 }
-                if (gloss) {
-                    targetProcessed[j] = { ...targetProcessed[j], processed: true, processedWord: gloss };
+                if (glossWord) {
+                    targetProcessed[j] = { ...targetProcessed[j], processed: true, processedWord: glossWord };
+                }
+                else {
+                    //now try if it's lujvo
+                    const selrafsi = (0, sozysozbot_jvozba_1.jvokaha_gui)(word);
+                    if (selrafsi.length >= 2) {
+                        const lujvo_gloss = gloss(selrafsi.join(" "), bangu, gentufa, jsonDoc);
+                        targetProcessed[j] = { ...targetProcessed[j], processed: true, processedWord: lujvo_gloss.join("-") };
+                    }
                 }
             }
         }
@@ -209,9 +219,9 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
         if (!elem.processed)
             elem.processedWord = elem.word + "*";
         return elem.processedWord;
-    }).join(" ");
+    });
     return prettifiedTarget;
-};
+}
 exports.gloss = gloss;
 const galfi = (response, bangu, data, akti) => {
     if (response.statusCode == 200) {

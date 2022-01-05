@@ -1,13 +1,13 @@
 {
   "name": "lojban",
-  "version": "2.0.16",
+  "version": "2.0.21",
   "description": "Lojban language parsers and tools",
   "main": "dist/index.js",
   "scripts": {
     "dumper": "ts-node src/bangu/dumper.ts",
     "compile": "node src/cmaxes/src/compiler.js",
     "build": "rm -rf dist ; yarn run dumper ; yarn run compile ; tsc",
-    "prep": "yarn version patch ; yarn run build",
+    "prep": "yarn version --patch ; yarn run build",
     "test": "../node_modules/.bin/mocha  --reporter spec ./test/index.js"
   },
   "author": "Gleki",

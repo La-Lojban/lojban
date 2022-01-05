@@ -2,6 +2,9 @@ import * as R from "ramda";
 import axios from "axios"
 import { escape } from "querystring"
 import { cllk } from "./cll"
+import {
+  jvokaha_gui as jvokaha_gui_local,
+} from "../sozysozbot_jvozba"
 
 type TargetElem = { processed: boolean, word: string, processedWord?: string | null }
 
@@ -41,7 +44,7 @@ const items: any = {
   },
   la: (array: Array<TargetElem>, index: number) => {
     const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
-    array[index] = { ...array[index], processedWord: '📛'}
+    array[index] = { ...array[index], processedWord: '📛' }
     array[index + 1] = { ...array[index + 1], processedWord: capitalize(array[index + 1].processedWord || array[index + 1].word) }
 
     return array
@@ -141,12 +144,12 @@ export function fastParse({ doc, bangu }: { doc: any; bangu?: string }) {
   return require('../../dist/assets/dumps/en.json')
 }
 
-export const gloss = (
+export function gloss(
   te_gerna: string,
   bangu = "en",
   gentufa: any,
   jsonDoc: any
-) => {
+) {
   te_gerna = te_gerna.replace(/\"/g, "")
   jsonDoc = fastParse({ doc: jsonDoc, bangu })
   if (gentufa) {
@@ -166,7 +169,7 @@ export const gloss = (
     lItems.push([i.split(","), items[i]])
   })
   Object.keys(universalItems).forEach((i) => {
-    lItems.push([i.split(","), universalItems[i]])
+    if (lItems.filter(([key]) => key.join(",") == i).length === 0) lItems.push([i.split(","), universalItems[i]])
   })
   let targetProcessed = target.map(i => ({ processed: false, word: i } as TargetElem))
   const lItemsVersions = [{ type: 'string', value: lItems.filter(([, value]) => typeof value === 'string') }, { type: 'function', value: lItems.filter(([, value]) => value instanceof Function) }]
@@ -175,7 +178,7 @@ export const gloss = (
       const word = target[j]
       const match = lItemsSubSet.value
         .filter(([key]) => (JSON.stringify(target.slice(j, j + key.length)) === JSON.stringify(key)))
-        .sort((a, b) => (a[0].length > b[0].length) ? -1 : -1)[0]
+        .sort((a, b) => (a[0].length >= b[0].length) ? -1 : -1)[0]
 
       if (match) {
         const [key, value] = match
@@ -190,26 +193,41 @@ export const gloss = (
         continue
       }
       if (lItemsSubSet.type === 'string') {
-        let gloss
+        let glossWord
         const valsi = jsonDocDirection(jsonDoc).valsi.filter(
           (v: { word: string | boolean }) => v.word === word
         )
         if (valsi[0]) {
           const v = valsi[0]
-          gloss =
+          glossWord =
             R.path(["glossword", "word"], v) ||
             R.path(["glossword", 0, "word"], v) ||
             R.path(["keyword", "word"], v)
-          if (!gloss && v.keyword && Array.isArray(v.keyword)) {
+          if (!glossWord && v.keyword && Array.isArray(v.keyword)) {
             const c = v.keyword.filter(
               (k: { word: string | boolean; place: string }) =>
                 k.word === word && k.place === "1"
             )
-            if (c[0]) gloss = c[0].word
+            if (c[0]) glossWord = c[0].word
           }
         }
-        if (gloss) {
-          targetProcessed[j] = { ...targetProcessed[j], processed: true, processedWord: gloss };
+
+        if (glossWord) {
+          targetProcessed[j] = { ...targetProcessed[j], processed: true, processedWord: glossWord };
+        }
+        else {
+          //now try if it's lujvo
+          const selrafsi = jvokaha_gui_local(word)
+          if (selrafsi.length >= 2) {
+            const lujvo_gloss = gloss(
+              selrafsi.join(" "),
+              bangu,
+              gentufa,
+              jsonDoc
+            )
+
+            targetProcessed[j] = { ...targetProcessed[j], processed: true, processedWord: lujvo_gloss.join("-") };
+          }
         }
       }
     }
@@ -218,7 +236,7 @@ export const gloss = (
   const prettifiedTarget = targetProcessed.filter(elem => elem.processedWord !== null).map(elem => {
     if (!elem.processed) elem.processedWord = elem.word + "*"
     return elem.processedWord
-  }).join(" ");
+  });
   return prettifiedTarget
 }
 

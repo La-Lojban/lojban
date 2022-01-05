@@ -59,5 +59,5 @@ export declare const modzi: (te_gerna: any, rawOutput?: boolean) => any;
 export declare const rotpaci: (te_gerna: string) => string;
 export declare const lojban2loglan: (te_gerna: string) => any;
 export declare const loglan2lojban: (te_gerna: string) => any;
-export declare const gloss: (te_gerna: string, bangu?: string, jsonDoc?: any, pilno_logentufa?: boolean) => string | string[];
+export declare const gloss: (te_gerna: string, bangu?: string, jsonDoc?: any, pilno_logentufa?: boolean) => string[];
 export declare const wiktionary: (te_gerna: any, bangu: any, akti: any) => void;
