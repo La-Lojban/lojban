@@ -292,7 +292,7 @@ function normalize(rafsi_list) {
         }
         else if (get_CV_info(end) === "C" &&
             get_CV_info(init) === "C" &&
-            morphology_1.is_permissible(end, init) === 0) {
+            (0, morphology_1.is_permissible)(end, init) === 0) {
             result.unshift("y");
         }
         else if (end === "n" &&
@@ -331,7 +331,7 @@ function is_tosmabru(rafsi, rest) {
         index = i;
         if (rest[i] === "y" ||
             (get_CV_info(rest[i]) === "CVCCV" &&
-                2 === morphology_1.is_permissible(rest[i].charAt(2), rest[i].charAt(3)))) {
+                2 === (0, morphology_1.is_permissible)(rest[i].charAt(2), rest[i].charAt(3)))) {
             break;
             // further testing
         }
@@ -346,7 +346,7 @@ function is_tosmabru(rafsi, rest) {
     do {
         if (tmp2 === "y")
             return true;
-        if (2 !== morphology_1.is_permissible(tmp1.charAt(tmp1.length - 1), tmp2.charAt(0))) {
+        if (2 !== (0, morphology_1.is_permissible)(tmp1.charAt(tmp1.length - 1), tmp2.charAt(0))) {
             return false;
         }
         tmp1 = tmp2;

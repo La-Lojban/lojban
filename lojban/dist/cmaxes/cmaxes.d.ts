@@ -6,6 +6,7 @@ export interface IFilePosition {
 export interface IFileRange {
     start: IFilePosition;
     end: IFilePosition;
+    source: string;
 }
 export interface ILiteralExpectation {
     type: "literal";
@@ -39,6 +40,10 @@ export declare class SyntaxError extends Error {
     location: IFileRange;
     name: string;
     constructor(message: string, expected: Expectation[], found: string | null, location: IFileRange);
+    format(sources: {
+        source: string;
+        text: string;
+    }[]): string;
 }
 export interface IParseOptions {
     filename?: string;

@@ -12,10 +12,10 @@ const xuvalsi = (str, type, cmaxes) => {
 };
 exports.xuvalsi = xuvalsi;
 const xugismu = (str, cmaxes) => {
-    return exports.xuvalsi(str, "gismu", cmaxes);
+    return (0, exports.xuvalsi)(str, "gismu", cmaxes);
 };
 exports.xugismu = xugismu;
 const xulujvo = (str, cmaxes) => {
-    return exports.xuvalsi(str, "lujvo", cmaxes);
+    return (0, exports.xuvalsi)(str, "lujvo", cmaxes);
 };
 exports.xulujvo = xulujvo;

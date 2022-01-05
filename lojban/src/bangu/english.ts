@@ -2,6 +2,9 @@ import * as R from "ramda";
 import axios from "axios"
 import { escape } from "querystring"
 import { cllk } from "./cll"
+
+type TargetElem = { processed: boolean, word: string, processedWord?: string | null }
+
 const items: any = {
   a: "and/or",
   ba: "in-future",
@@ -16,7 +19,7 @@ const items: any = {
   "e'a": "[permission-granted]",
   "e'u": "I-suggest",
   e: "and",
-  enai: "and-not",
+  "e,nai": "and-not",
   "gi'a": ",-and/or",
   "gi'e": ",-and",
   "gi'u": "whether-or-not",
@@ -25,20 +28,22 @@ const items: any = {
   ja: "and/or",
   "je'a": "indeed",
   je: "and",
-  jenai: "and-not",
+  "je,nai": "and-not",
   ju: "whether-or-not",
   "ka'e": "possibly-can",
   ka: "being",
   klama: "come(s)",
   "klama@n": "comer",
   ko: "do-it-so-that-you",
-  ku: (array: string[], index: number) => {
-    array[index - 1] = array[index - 1] + ","
+  ku: (array: Array<TargetElem>, index: number) => {
+    array[index - 1] = { ...array[index - 1], processedWord: (array[index - 1].processedWord || array[index - 1].word) + "," }
     return array
   },
-  la: (array: string[], index: number) => {
+  la: (array: Array<TargetElem>, index: number) => {
     const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
-    array[index + 1] = capitalize(array[index + 1])
+    array[index] = { ...array[index], processedWord: '📛'}
+    array[index + 1] = { ...array[index + 1], processedWord: capitalize(array[index + 1].processedWord || array[index + 1].word) }
+
     return array
   },
   le: "the",
@@ -53,12 +58,12 @@ const items: any = {
   na: "not",
   nai: "-not",
   nelci: "fond-of",
-  noi: (array: string[], index: number) => {
-    array[index - 1] = array[index - 1] + ", which"
+  noi: (array: Array<TargetElem>, index: number) => {
+    array[index - 1] = { ...array[index - 1], processedWord: (array[index - 1].processedWord || array[index - 1].word) + ", which" }
     return array
   },
-  poi: (array: string[], index: number) => {
-    array[index - 1] = array[index - 1] + " that"
+  poi: (array: Array<TargetElem>, index: number) => {
+    array[index - 1] = { ...array[index - 1], processedWord: (array[index - 1].processedWord || array[index - 1].word) + " that" }
     return array
   },
   nu: "event-of",
@@ -77,15 +82,15 @@ const items: any = {
   "u'u": "sorry",
   u: "whether-or-not",
   ui: "yay",
-  uinai: "unfortunately",
-  vau: (array: string[], index: number) => {
-    array[index - 1] = array[index - 1] + "]"
+  "ui,nai": "unfortunately",
+  vau: (array: Array<TargetElem>, index: number) => {
+    array[index - 1] = { ...array[index - 1], processedWord: (array[index - 1].processedWord || array[index - 1].word) + "]" }
     return array
   },
   xu: "is-it-true-that",
-  xunai: "isnt-it-so-that",
+  "xu,nai": "isnt-it-so-that",
   "za'a": "as-I-can-see",
-  "za'adai": "as-you-can-see",
+  "za'a,dai": "as-you-can-see",
   "zo'u": ":",
   zo: "the-word:",
   //["bakni","is-a-cow"],
@@ -132,7 +137,7 @@ export function fastParse({ doc, bangu }: { doc: any; bangu?: string }) {
   if (doc) return doc
   try {
     return require('../assets/dumps/en.json')
-  }catch(err){}
+  } catch (err) { }
   return require('../../dist/assets/dumps/en.json')
 }
 
@@ -155,88 +160,66 @@ export const gloss = (
   }
   const arr_te_gerna = te_gerna.split(" ")
 
-  let target: Array<string | boolean> = arr_te_gerna.slice()
-  const fItems: any = {}
-  const fUniversalItems: any = {}
-  const lItems: any = {}
-  const lUniversalItems: any = {}
-  Object.keys(items).map((i: string) => {
-    if (items[i] instanceof Function) {
-      fItems[i] = items[i]
-    } else {
-      lItems[i] = items[i]
-    }
+  let target: Array<string> = arr_te_gerna.slice()
+  let lItems: Array<[Array<string>, string | Function]> = []
+  if (bangu === "en") Object.keys(items).forEach((i: string) => {
+    lItems.push([i.split(","), items[i]])
   })
-  Object.keys(universalItems).map((i) => {
-    if (universalItems[i] instanceof Function) {
-      fUniversalItems[i] = universalItems[i]
-    } else {
-      lUniversalItems[i] = universalItems[i]
-    }
+  Object.keys(universalItems).forEach((i) => {
+    lItems.push([i.split(","), universalItems[i]])
   })
-
-  for (let j in target) {
-    const word = target[j]
-    if (bangu === "en") {
-      const match = Object.keys(lItems).filter((n) => n === word)[0]
+  let targetProcessed = target.map(i => ({ processed: false, word: i } as TargetElem))
+  const lItemsVersions = [{ type: 'string', value: lItems.filter(([, value]) => typeof value === 'string') }, { type: 'function', value: lItems.filter(([, value]) => value instanceof Function) }]
+  for (const lItemsSubSet of lItemsVersions) {
+    for (let j = 0; j < target.length; j++) {
+      const word = target[j]
+      const match = lItemsSubSet.value
+        .filter(([key]) => (JSON.stringify(target.slice(j, j + key.length)) === JSON.stringify(key)))
+        .sort((a, b) => (a[0].length > b[0].length) ? -1 : -1)[0]
 
       if (match) {
-        target[j] = lItems[match]
+        const [key, value] = match
+        if (value instanceof Function) {
+          targetProcessed = value(targetProcessed, j)
+        } else targetProcessed[j] = { ...targetProcessed[j], processed: true, processedWord: value };
+
+        for (let j_ = j + 1; j_ <= j + key.length - 1; j_++) {
+          targetProcessed[j_] = { ...targetProcessed[j_], processed: true, processedWord: null };
+        }
+        j += key.length - 1
         continue
       }
-    }
-    const match = Object.keys(lUniversalItems).filter((n) => n === word)[0]
-
-    if (match) {
-      target[j] = lUniversalItems[match]
-      continue
-    }
-
-    let gloss
-    const valsi = jsonDocDirection(jsonDoc).valsi.filter(
-      (v: { word: string | boolean }) => v.word === word
-    )
-    if (valsi[0]) {
-      const v = valsi[0]
-      gloss =
-        R.path(["glossword", "word"], v) ||
-        R.path(["glossword", 0, "word"], v) ||
-        R.path(["keyword", "word"], v)
-      if (!gloss && v.keyword && Array.isArray(v.keyword)) {
-        const c = v.keyword.filter(
-          (k: { word: string | boolean; place: string }) =>
-            k.word === word && k.place === "1"
+      if (lItemsSubSet.type === 'string') {
+        let gloss
+        const valsi = jsonDocDirection(jsonDoc).valsi.filter(
+          (v: { word: string | boolean }) => v.word === word
         )
-        if (c[0]) gloss = c[0].word
+        if (valsi[0]) {
+          const v = valsi[0]
+          gloss =
+            R.path(["glossword", "word"], v) ||
+            R.path(["glossword", 0, "word"], v) ||
+            R.path(["keyword", "word"], v)
+          if (!gloss && v.keyword && Array.isArray(v.keyword)) {
+            const c = v.keyword.filter(
+              (k: { word: string | boolean; place: string }) =>
+                k.word === word && k.place === "1"
+            )
+            if (c[0]) gloss = c[0].word
+          }
+        }
+        if (gloss) {
+          targetProcessed[j] = { ...targetProcessed[j], processed: true, processedWord: gloss };
+        }
       }
-    }
-    if (!gloss) {
-      target[j] = te_gerna[j] + "*"
-    } else {
-      target[j] = gloss.replace(/ /g, "-")
     }
   }
-
-  //functional
-  arr_te_gerna.forEach((word: string, j: number) => {
-    if (bangu === "en") {
-      const match = Object.keys(fItems).filter((n) => n === word)[0]
-      if (match) {
-        target = fItems[match](target, j)
-        target[j] = true
-      }
-    }
-    if (target[j] !== true) {
-      const match = Object.keys(fUniversalItems).filter((n) => n === word)[0]
-      if (match) {
-        target = fUniversalItems[match](target, j)
-        target[j] = true
-      }
-    }
-  })
-
-  target = target.filter((j) => j !== true)
-  return target
+  //deal with non-processed elements
+  const prettifiedTarget = targetProcessed.filter(elem => elem.processedWord !== null).map(elem => {
+    if (!elem.processed) elem.processedWord = elem.word + "*"
+    return elem.processedWord
+  }).join(" ");
+  return prettifiedTarget
 }
 
 const galfi = (response: any, bangu: string, data: any, akti: Function) => {

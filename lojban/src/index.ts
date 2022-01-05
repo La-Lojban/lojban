@@ -140,10 +140,10 @@ export const loglan2lojban = (te_gerna: string) =>
   require("./bangu/loglan").loglan2lojban(te_gerna)
 
 export const gloss = (
-  te_gerna: any,
-  bangu: any,
-  jsonDoc: any,
-  pilno_logentufa: any
+  te_gerna: string,
+  bangu?: string,
+  jsonDoc?: any,
+  pilno_logentufa = true
 ) =>
   english.gloss(
     te_gerna,

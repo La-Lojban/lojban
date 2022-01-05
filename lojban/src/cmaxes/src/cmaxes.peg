@@ -1,11 +1,11 @@
 //simplified morphology parser: zoi and non lojban text not supported. capital letters, illegal zunsna pairs are preprocessed
 {
-  function _join(a)
+  function _join(a: any)
   {
     if (typeof(a) == "string") return a; else {var r = ""; for (var v in a) { r += _join(a[v]); } return r;}
   }
 
-  function _node_int(a)
+  function _node_int(a: any): any
   {
     if (typeof(a) == "string") return a;
     var r = [];

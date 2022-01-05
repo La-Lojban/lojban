@@ -8,7 +8,7 @@ function anji(te_gerna, zeizei, gentufa) {
     let arr_te_gerna = gentufa(te_gerna).kampu;
     arr_te_gerna = arr_te_gerna.map((valsi, index) => {
         if (valsi[0].indexOf("fu'ivla") >= 0 || valsi[0].indexOf("cmevla") >= 0) {
-            valsi[1] = vrici_1.jbopomofo(valsi[1]);
+            valsi[1] = (0, vrici_1.jbopomofo)(valsi[1]);
         }
         else {
             valsi[1] = anji_json[valsi[1]] || " " + valsi[1];

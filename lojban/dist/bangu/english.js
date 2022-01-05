@@ -19,7 +19,7 @@ const items = {
     "e'a": "[permission-granted]",
     "e'u": "I-suggest",
     e: "and",
-    enai: "and-not",
+    "e,nai": "and-not",
     "gi'a": ",-and/or",
     "gi'e": ",-and",
     "gi'u": "whether-or-not",
@@ -28,7 +28,7 @@ const items = {
     ja: "and/or",
     "je'a": "indeed",
     je: "and",
-    jenai: "and-not",
+    "je,nai": "and-not",
     ju: "whether-or-not",
     "ka'e": "possibly-can",
     ka: "being",
@@ -36,12 +36,13 @@ const items = {
     "klama@n": "comer",
     ko: "do-it-so-that-you",
     ku: (array, index) => {
-        array[index - 1] = array[index - 1] + ",";
+        array[index - 1] = { ...array[index - 1], processedWord: (array[index - 1].processedWord || array[index - 1].word) + "," };
         return array;
     },
     la: (array, index) => {
         const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-        array[index + 1] = capitalize(array[index + 1]);
+        array[index] = { ...array[index], processedWord: '📛' };
+        array[index + 1] = { ...array[index + 1], processedWord: capitalize(array[index + 1].processedWord || array[index + 1].word) };
         return array;
     },
     le: "the",
@@ -57,11 +58,11 @@ const items = {
     nai: "-not",
     nelci: "fond-of",
     noi: (array, index) => {
-        array[index - 1] = array[index - 1] + ", which";
+        array[index - 1] = { ...array[index - 1], processedWord: (array[index - 1].processedWord || array[index - 1].word) + ", which" };
         return array;
     },
     poi: (array, index) => {
-        array[index - 1] = array[index - 1] + " that";
+        array[index - 1] = { ...array[index - 1], processedWord: (array[index - 1].processedWord || array[index - 1].word) + " that" };
         return array;
     },
     nu: "event-of",
@@ -80,17 +81,18 @@ const items = {
     "u'u": "sorry",
     u: "whether-or-not",
     ui: "yay",
-    uinai: "unfortunately",
+    "ui,nai": "unfortunately",
     vau: (array, index) => {
-        array[index - 1] = array[index - 1] + "]";
+        array[index - 1] = { ...array[index - 1], processedWord: (array[index - 1].processedWord || array[index - 1].word) + "]" };
         return array;
     },
     xu: "is-it-true-that",
-    xunai: "isnt-it-so-that",
+    "xu,nai": "isnt-it-so-that",
     "za'a": "as-I-can-see",
-    "za'adai": "as-you-can-see",
+    "za'a,dai": "as-you-can-see",
     "zo'u": ":",
     zo: "the-word:",
+    //["bakni","is-a-cow"],
 };
 const universalItems = {
     "ba'e": "NB! =>",
@@ -130,7 +132,11 @@ function fastParse({ doc, bangu }) {
     bangu = bangu !== null && bangu !== void 0 ? bangu : "en";
     if (doc)
         return doc;
-    return require('../assets/dumps/en.json');
+    try {
+        return require('../assets/dumps/en.json');
+    }
+    catch (err) { }
+    return require('../../dist/assets/dumps/en.json');
 }
 exports.fastParse = fastParse;
 const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
@@ -148,80 +154,63 @@ const gloss = (te_gerna, bangu = "en", gentufa, jsonDoc) => {
     }
     const arr_te_gerna = te_gerna.split(" ");
     let target = arr_te_gerna.slice();
-    const fItems = {};
-    const fUniversalItems = {};
-    const lItems = {};
-    const lUniversalItems = {};
-    Object.keys(items).map((i) => {
-        if (items[i] instanceof Function) {
-            fItems[i] = items[i];
-        }
-        else {
-            lItems[i] = items[i];
-        }
+    let lItems = [];
+    if (bangu === "en")
+        Object.keys(items).forEach((i) => {
+            lItems.push([i.split(","), items[i]]);
+        });
+    Object.keys(universalItems).forEach((i) => {
+        lItems.push([i.split(","), universalItems[i]]);
     });
-    Object.keys(universalItems).map((i) => {
-        if (universalItems[i] instanceof Function) {
-            fUniversalItems[i] = universalItems[i];
-        }
-        else {
-            lUniversalItems[i] = universalItems[i];
-        }
-    });
-    for (let j in target) {
-        const word = target[j];
-        if (bangu === "en") {
-            const match = Object.keys(lItems).filter((n) => n === word)[0];
+    let targetProcessed = target.map(i => ({ processed: false, word: i }));
+    const lItemsVersions = [{ type: 'string', value: lItems.filter(([, value]) => typeof value === 'string') }, { type: 'function', value: lItems.filter(([, value]) => value instanceof Function) }];
+    for (const lItemsSubSet of lItemsVersions) {
+        for (let j = 0; j < target.length; j++) {
+            const word = target[j];
+            const match = lItemsSubSet.value
+                .filter(([key]) => (JSON.stringify(target.slice(j, j + key.length)) === JSON.stringify(key)))
+                .sort((a, b) => (a[0].length > b[0].length) ? -1 : -1)[0];
             if (match) {
-                target[j] = lItems[match];
+                const [key, value] = match;
+                if (value instanceof Function) {
+                    targetProcessed = value(targetProcessed, j);
+                }
+                else
+                    targetProcessed[j] = { ...targetProcessed[j], processed: true, processedWord: value };
+                for (let j_ = j + 1; j_ <= j + key.length - 1; j_++) {
+                    targetProcessed[j_] = { ...targetProcessed[j_], processed: true, processedWord: null };
+                }
+                j += key.length - 1;
                 continue;
             }
-        }
-        const match = Object.keys(lUniversalItems).filter((n) => n === word)[0];
-        if (match) {
-            target[j] = lUniversalItems[match];
-            continue;
-        }
-        let gloss;
-        const valsi = jsonDocDirection(jsonDoc).valsi.filter((v) => v.word === word);
-        if (valsi[0]) {
-            const v = valsi[0];
-            gloss =
-                R.path(["glossword", "word"], v) ||
-                    R.path(["glossword", 0, "word"], v) ||
-                    R.path(["keyword", "word"], v);
-            if (!gloss && v.keyword && Array.isArray(v.keyword)) {
-                const c = v.keyword.filter((k) => k.word === word && k.place === "1");
-                if (c[0])
-                    gloss = c[0].word;
+            if (lItemsSubSet.type === 'string') {
+                let gloss;
+                const valsi = jsonDocDirection(jsonDoc).valsi.filter((v) => v.word === word);
+                if (valsi[0]) {
+                    const v = valsi[0];
+                    gloss =
+                        R.path(["glossword", "word"], v) ||
+                            R.path(["glossword", 0, "word"], v) ||
+                            R.path(["keyword", "word"], v);
+                    if (!gloss && v.keyword && Array.isArray(v.keyword)) {
+                        const c = v.keyword.filter((k) => k.word === word && k.place === "1");
+                        if (c[0])
+                            gloss = c[0].word;
+                    }
+                }
+                if (gloss) {
+                    targetProcessed[j] = { ...targetProcessed[j], processed: true, processedWord: gloss };
+                }
             }
-        }
-        if (!gloss) {
-            target[j] = te_gerna[j] + "*";
-        }
-        else {
-            target[j] = gloss.replace(/ /g, "-");
         }
     }
-    //functional
-    arr_te_gerna.forEach((word, j) => {
-        if (bangu === "en") {
-            const match = Object.keys(fItems).filter((n) => n === word)[0];
-            if (match) {
-                target = fItems[match](target, j);
-                target[j] = true;
-            }
-        }
-        if (target[j] !== true) {
-            const match = Object.keys(fUniversalItems).filter((n) => n === word)[0];
-            if (match) {
-                target = fUniversalItems[match](target, j);
-                target[j] = true;
-            }
-        }
-    });
-    target = target.filter((j) => j !== true);
-    return target;
+    //deal with non-processed elements
+    const prettifiedTarget = targetProcessed.filter(elem => elem.processedWord !== null).map(elem => {
+        if (!elem.processed)
+            elem.processedWord = elem.word + "*";
+        return elem.processedWord;
+    }).join(" ");
+    return prettifiedTarget;
 };
 exports.gloss = gloss;
 const galfi = (response, bangu, data, akti) => {
@@ -315,7 +304,7 @@ const galfi = (response, bangu, data, akti) => {
     }
 };
 const wiktionary = (te_gerna, vefanva, akti) => {
-    const urli = "https://en.wiktionary.org/w/api.php?format=json&action=query&titles={valsi}&rvprop=content&prop=revisions&redirects=1&callback=?".replace("{valsi}", querystring_1.escape(te_gerna));
+    const urli = "https://en.wiktionary.org/w/api.php?format=json&action=query&titles={valsi}&rvprop=content&prop=revisions&redirects=1&callback=?".replace("{valsi}", (0, querystring_1.escape)(te_gerna));
     const encoding = "utf8";
     axios_1.default.get(urli).then((sespusku) => {
         galfi(sespusku, vefanva, encoding ? sespusku.body.toString(encoding) : sespusku.body, akti);
@@ -388,7 +377,7 @@ exports.rafsi = rafsi;
 const rafsi_giho_nai_se_rafsi = (word, jsonDoc, xugismu, bangu) => {
     return {
         valsi: word,
-        ...exports.rafsi(word, jsonDoc, xugismu, bangu),
+        ...(0, exports.rafsi)(word, jsonDoc, xugismu, bangu),
     };
 };
 exports.rafsi_giho_nai_se_rafsi = rafsi_giho_nai_se_rafsi;

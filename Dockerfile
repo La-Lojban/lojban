@@ -1,9 +1,9 @@
 FROM alpine:latest
 
-RUN apk add --no-cache bash
-RUN apk add --update nodejs npm
+RUN apk --no-cache add bash
+RUN apk --no-cache add --update nodejs yarn
 
 RUN mkdir /lojban_npm
 COPY lojban/package*.json /lojban_npm/
 WORKDIR /lojban_npm
-RUN npm i ; npm i -g mocha npm-check-updates ts-node
+RUN yarn ; yarn global add mocha npm-check-updates ts-node

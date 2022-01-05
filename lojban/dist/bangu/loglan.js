@@ -1435,7 +1435,7 @@ const items = [
     ["zinki", "zinko"],
     ["ctebi", "zlupi"],
     ["bartu", "zvoto"],
-    ["mi", "mi"],
+    ["mi", "mi"], //dont copy
 ];
 function lojban2loglan(text, gentufa) {
     text = text.toLowerCase().replace(/[^a-z'\. ]/g, "");
