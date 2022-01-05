@@ -1,5 +1,8 @@
-import english = require("./bangu/english")
-import vrici = require("./ceha/vrici")
+import * as english from "./bangu/english"
+import * as vrici from "./ceha/vrici"
+import { preprocessing } from "./libs/camxes_preproc"
+export { preprocessing } from "./libs/camxes_preproc"
+
 import {
   search_selrafsi_from_rafsi2,
   jvozba as jvozba_local,
@@ -11,10 +14,10 @@ import {
   xugismu as xugismu_local,
   xulujvo as xulujvo_local,
 } from "./cmaxes/xuvalsi"
-import {parse as romoi_lahi_cmaxes_parse} from './cmaxes/cmaxes'
+import { parse as romoi_lahi_cmaxes_parse } from './cmaxes/cmaxes'
 import { zeizei as zeizei_local, rotpaci as rotpaci_local } from "./ceha/zeizei"
-import {anji as anji_local} from './ceha/anji'
-import {modzi as modzi_local} from './ceha/modzi'
+import { anji as anji_local } from './ceha/anji'
+import { modzi as modzi_local } from './ceha/modzi'
 
 export const romoi_lahi_cmaxes = (te_gerna: string) => {
   try {
@@ -84,7 +87,7 @@ export function xugismu(te_gerna: string) {
 
 export function ilmentufa_off(te_gerna: any, mode: any, preprocess: any) {
   if (preprocess)
-    te_gerna = require("../libs/ilmentufa/camxes_preproc.js").preprocessing(te_gerna)
+    te_gerna = preprocessing(te_gerna)
   try {
     const terspuda = require("../libs/ilmentufa/camxes_postproc.js").postprocessing(
       require("../libs/ilmentufa/camxes.js").parse(te_gerna),
@@ -97,7 +100,7 @@ export function ilmentufa_off(te_gerna: any, mode: any, preprocess: any) {
 }
 export function ilmentufa_exp(te_gerna: any, mode: any, preprocess: any) {
   if (preprocess)
-    te_gerna = require("../libs/ilmentufa/camxes_preproc.js").preprocessing(te_gerna)
+    te_gerna = preprocessing(te_gerna)
   try {
     const terspuda = require("../libs/ilmentufa/camxes_postproc.js").postprocessing(
       require("../libs/ilmentufa/camxes-beta.js").parse(te_gerna),
@@ -122,7 +125,7 @@ export const zeizei = (te_gerna: any, returnFullInfo?: any) =>
 export const anji = (te_gerna: string) =>
   anji_local(te_gerna, zeizei, romoi_lahi_cmaxes)
 
-export const modzi = (te_gerna: any, rawOutput: any) =>
+export const modzi = (te_gerna: any, rawOutput?: boolean) =>
   modzi_local(te_gerna, zeizei, romoi_lahi_cmaxes, rawOutput)
 
 export const rotpaci = (te_gerna: string) => rotpaci_local(te_gerna)

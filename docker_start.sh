@@ -10,3 +10,4 @@ docker run \
   -v $(pwd)/lojban:/lojban_npm/lojban/:Z \
   lojban_npm \
   bash
+docker exec -it lojban_npm bash

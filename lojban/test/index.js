@@ -43,6 +43,14 @@ describe("#jvokaha2", function () {
   })
 })
 
+describe("#jvokaha2", function () {
+  it("should split 'ambulance' as [ 'ambulance' ]", function () {
+    JSON.stringify(lojban.jvokaha2("ambulance")).should.equal(
+      '["ambulance"]'
+    )
+  })
+})
+
 describe("#xulujvo", function () {
   it("should confirm that 'fu'ivla' is true (for being a lujvo)", function () {
     JSON.stringify(lojban.xulujvo("fu'irvla")).should.equal("true")

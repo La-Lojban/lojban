@@ -215,16 +215,14 @@ function jvokaha2(lujvo) {
             continue;
         }
         // if all fails...
-        console.log(res, lujvo);
-        throw new Error("Failed to decompose {" + original_lujvo + "}");
+        return [original_lujvo];
     }
-    return res;
 }
 exports.jvokaha2 = jvokaha2;
 function jvokaha_gui(txt) {
     txt = txt.replace(/h/g, "'");
     txt = txt.toLowerCase();
-    var arr;
+    let arr;
     try {
         arr = jvokaha2(txt);
     }

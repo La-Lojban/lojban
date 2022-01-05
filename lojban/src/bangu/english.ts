@@ -130,7 +130,10 @@ function jsonDocDirection(jsonDoc: any) {
 export function fastParse({ doc, bangu }: { doc: any; bangu?: string }) {
   bangu = bangu ?? "en"
   if (doc) return doc
-  return require('../assets/dumps/en.json')
+  try {
+    return require('../assets/dumps/en.json')
+  }catch(err){}
+  return require('../../dist/assets/dumps/en.json')
 }
 
 export const gloss = (

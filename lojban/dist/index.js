@@ -1,8 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.wiktionary = exports.gloss = exports.loglan2lojban = exports.lojban2loglan = exports.rotpaci = exports.modzi = exports.anji = exports.zeizei = exports.ilmentufa_exp = exports.ilmentufa_off = exports.xugismu = exports.xulujvo = exports.rafsi_giho_nai_se_rafsi = exports.dump = exports.word = exports.selmaho = exports.rafsi = exports.jvokaha_gui = exports.jvokaha2 = exports.jvokaha = exports.jvozba = exports.krulermorna = exports.rukylermorna = exports.jbopomofo = exports.cmaxes = exports.romoi_lahi_cmaxes = void 0;
+exports.wiktionary = exports.gloss = exports.loglan2lojban = exports.lojban2loglan = exports.rotpaci = exports.modzi = exports.anji = exports.zeizei = exports.ilmentufa_exp = exports.ilmentufa_off = exports.xugismu = exports.xulujvo = exports.rafsi_giho_nai_se_rafsi = exports.dump = exports.word = exports.selmaho = exports.rafsi = exports.jvokaha_gui = exports.jvokaha2 = exports.jvokaha = exports.jvozba = exports.krulermorna = exports.rukylermorna = exports.jbopomofo = exports.cmaxes = exports.romoi_lahi_cmaxes = exports.preprocessing = void 0;
 const english = require("./bangu/english");
 const vrici = require("./ceha/vrici");
+const camxes_preproc_1 = require("./libs/camxes_preproc");
+var camxes_preproc_2 = require("./libs/camxes_preproc");
+Object.defineProperty(exports, "preprocessing", { enumerable: true, get: function () { return camxes_preproc_2.preprocessing; } });
 const sozysozbot_jvozba_1 = require("./sozysozbot_jvozba");
 const xuvalsi_1 = require("./cmaxes/xuvalsi");
 const cmaxes_1 = require("./cmaxes/cmaxes");
@@ -61,7 +64,7 @@ function xugismu(te_gerna) {
 exports.xugismu = xugismu;
 function ilmentufa_off(te_gerna, mode, preprocess) {
     if (preprocess)
-        te_gerna = require("../libs/ilmentufa/camxes_preproc.js").preprocessing(te_gerna);
+        te_gerna = camxes_preproc_1.preprocessing(te_gerna);
     try {
         const terspuda = require("../libs/ilmentufa/camxes_postproc.js").postprocessing(require("../libs/ilmentufa/camxes.js").parse(te_gerna), mode);
         return { tcini: "snada", "te spuda": terspuda, kampu: terspuda };
@@ -73,7 +76,7 @@ function ilmentufa_off(te_gerna, mode, preprocess) {
 exports.ilmentufa_off = ilmentufa_off;
 function ilmentufa_exp(te_gerna, mode, preprocess) {
     if (preprocess)
-        te_gerna = require("../libs/ilmentufa/camxes_preproc.js").preprocessing(te_gerna);
+        te_gerna = camxes_preproc_1.preprocessing(te_gerna);
     try {
         const terspuda = require("../libs/ilmentufa/camxes_postproc.js").postprocessing(require("../libs/ilmentufa/camxes-beta.js").parse(te_gerna), mode);
         return { tcini: "snada", "te spuda": terspuda, kampu: terspuda };

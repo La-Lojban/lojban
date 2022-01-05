@@ -2,4 +2,4 @@ export declare function modzi(te_gerna: string, zeizei: (te_gerna: any, returnFu
     tcini: string;
     "te spuda": any;
     kampu: any;
-}, rawOutput: any): any;
+}, rawOutput: boolean): any;

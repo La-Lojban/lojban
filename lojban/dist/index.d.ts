@@ -1,3 +1,4 @@
+export { preprocessing } from "./libs/camxes_preproc";
 export declare const romoi_lahi_cmaxes: (te_gerna: string) => {
     tcini: string;
     "te spuda": any;
@@ -15,8 +16,8 @@ export declare const jbopomofo: (te_gerna: string) => string;
 export declare const rukylermorna: (te_gerna: string) => string;
 export declare const krulermorna: (te_gerna: string) => string;
 export declare const jvozba: (selcmima: string) => any;
-export declare const jvokaha: (valsi: string) => any[];
-export declare const jvokaha2: (valsi: string) => any[];
+export declare const jvokaha: (valsi: string) => string[];
+export declare const jvokaha2: (valsi: string) => string[];
 export declare const jvokaha_gui: (valsi: string) => string[];
 export declare const rafsi: (valsi: string, jsonDoc?: string, bangu?: string) => {
     rafsi: string[];
@@ -54,7 +55,7 @@ export declare function ilmentufa_exp(te_gerna: any, mode: any, preprocess: any)
 };
 export declare const zeizei: (te_gerna: any, returnFullInfo?: any) => any;
 export declare const anji: (te_gerna: string) => any;
-export declare const modzi: (te_gerna: any, rawOutput: any) => any;
+export declare const modzi: (te_gerna: any, rawOutput?: boolean) => any;
 export declare const rotpaci: (te_gerna: string) => string;
 export declare const lojban2loglan: (te_gerna: string) => any;
 export declare const loglan2lojban: (te_gerna: string) => any;

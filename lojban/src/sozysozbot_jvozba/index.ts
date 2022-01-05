@@ -169,7 +169,7 @@ export function jvokaha(lujvo: string) {
   }
 }
 
-export function jvokaha2(lujvo: string) {
+export function jvokaha2(lujvo: string): string[] {
   var original_lujvo = lujvo
   var res = []
   while (true) {
@@ -236,16 +236,14 @@ export function jvokaha2(lujvo: string) {
     }
 
     // if all fails...
-    console.log(res, lujvo)
-    throw new Error("Failed to decompose {" + original_lujvo + "}")
+    return [original_lujvo]
   }
-  return res
 }
 
 export function jvokaha_gui(txt: string): string[] | null {
   txt = txt.replace(/h/g, "'")
   txt = txt.toLowerCase()
-  var arr
+  let arr: string[]
   try {
     arr = jvokaha2(txt)
   } catch (e) {
