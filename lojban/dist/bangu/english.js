@@ -21,9 +21,27 @@ const items = {
     "e'u": "I-suggest",
     e: "and",
     "e,nai": "and-not",
-    "gi'a": ",-and/or",
-    "gi'e": ",-and",
-    "gi'u": "whether-or-not",
+    "gi'e": (array, index) => {
+        let ind = index - 1;
+        array[ind] = { ...array[ind], processedWord: (array[ind].processedWord || array[ind].word) + "," };
+        ind = index;
+        array[ind] = { ...array[ind], processedWord: "and" };
+        return array;
+    },
+    "gi'a": (array, index) => {
+        let ind = index - 1;
+        array[ind] = { ...array[ind], processedWord: (array[ind].processedWord || array[ind].word) + "," };
+        ind = index;
+        array[ind] = { ...array[ind], processedWord: "and/or" };
+        return array;
+    },
+    "gi'u": (array, index) => {
+        let ind = index - 1;
+        array[ind] = { ...array[ind], processedWord: (array[ind].processedWord || array[ind].word) + "," };
+        ind = index;
+        array[ind] = { ...array[ind], processedWord: "whether-or-not" };
+        return array;
+    },
     gu: "whether-or-not",
     ie: "yeah",
     ja: "and/or",
@@ -144,14 +162,17 @@ function gloss(te_gerna, bangu = "en", gentufa, jsonDoc) {
     te_gerna = te_gerna.replace(/\"/g, "");
     jsonDoc = fastParse({ doc: jsonDoc, bangu });
     if (gentufa) {
-        const parsed = gentufa(te_gerna, " ", true);
+        const parsed = gentufa(te_gerna, "T", true);
         if (parsed.tcini !== "snada")
             return ["di'u na gendra"];
         te_gerna = parsed["kampu"]
+            .replace(/\bLIhU\b/gm, "li'u")
             .replace(/,/g, " ")
+            .replace(/\b[A-Z]+h[A-Z]+[0-9]*[a-z]*\b/g, "")
             .replace(/[^a-z'\. ]/g, "")
             .replace(/ {2,}/gm, " ")
             .trim();
+        console.log(parsed, te_gerna);
     }
     const arr_te_gerna = te_gerna.split(" ");
     let target = arr_te_gerna.slice();

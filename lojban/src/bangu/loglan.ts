@@ -1432,7 +1432,24 @@ const items = [
   ["zinki", "zinko"],
   ["ctebi", "zlupi"],
   ["bartu", "zvoto"],
-  ["mi", "mi"], //dont copy
+  ["mi", "mi"],
+  ["fi'i", "gesko"],
+  ["a", ",a"],
+  ["e", ",e"],
+  ["o", ",o"],
+  ["u", ",u"],
+  ["ja", "ca"],
+  ["je", "ce"],
+  ["jo", "co"],
+  ["ju", "cu"],
+  ["joi", "ze"],
+  ["gi'e", ",e"],
+  ["gi'a", ",a"],
+  ["gi'o", ",o"],
+  ["gi'u", ""],
+  ["so'i", "ro"],
+  ["la'edi'u", "tio"],
+  ["le su'u", "lepo"],
 ]
 
 function lojban2loglan(text: string, gentufa: any) {
@@ -1459,9 +1476,9 @@ function lojban2loglan(text: string, gentufa: any) {
 }
 
 function loglan2lojban(text: string) {
-  text = text.toLowerCase().replace(/[^a-z'\. ]/g, "")
+  text = text.toLowerCase().replace(/[^a-z'\., ]/g, "").replace(/[\., ]/g, " ")
 
-  let arrText = text.split(" ")
+  let arrText = text.split(" ").filter(Boolean)
   items.forEach((item) => {
     const myregexp: RegExp = new RegExp(`^${item[1]}$`, "gm")
     for (let j = 0; j < arrText.length; j++) {
