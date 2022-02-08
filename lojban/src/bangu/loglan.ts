@@ -1450,50 +1450,80 @@ const items = [
   ["so'i", "ro"],
   ["la'edi'u", "tio"],
   ["le su'u", "lepo"],
+  ["sera'a", "peu"],
+  [["o", "nai"], "onoi"]
 ]
 
 function lojban2loglan(text: string, gentufa: any) {
   text = text.toLowerCase().replace(/[^a-z'\. ]/g, "")
   const tree = gentufa(text)
   if (tree.tcini === "fliba") return ""
-  const arrText = tree["kampu"]
+  let arrText: string[] = tree["kampu"]
     .map((a: any[]) => a[1].replace(/-/g, ""))
     .filter((a: string) => a !== " ")
-  items.forEach((item) => {
-    const myregexp = new RegExp(`^${item[0]}$`, "gm")
-    for (let j = 0; j < arrText.length; j++) {
-      if (arrText[j].match(myregexp) !== null) {
-        arrText[j] = item[1].replace(/ /gm, "A ").replace(/$/gm, "A")
+
+  const itemsString: [string, string][] = items.filter(i => typeof i[0] === 'string') as [string, string][];
+  const itemsArray: [string[], string][] = items.filter(i => Array.isArray(i[0])) as [string[], string][];
+  for (let j = 0; j < arrText.length; j++) {
+    if (arrText[j] === null) continue;
+    let found = false
+
+    for (let item of itemsArray) {
+      if (arrText.slice(j, j + item[0].length).join(" ") === item[0].join(" ")) {
+        const filler = new Array(item[0].length).fill(null)
+        arrText.splice(j, j + item[0].length-1, ...filler)
+        arrText[j] = item[1]
+        found = true;
+        break;
       }
     }
-  })
-  return arrText
+
+    if (!found)
+      for (let item of itemsString) {
+        if (arrText[j] === item[0]) {
+          arrText[j] = item[1]
+          found = true;
+          break;
+        }
+      }
+    if (!found) arrText[j] += "*"
+  }
+
+  return arrText.filter(Boolean)
     .join(" ")
-    .replace(/ /gm, "* ")
-    .replace(/$/gm, "*")
-    .replace(/A\*/gm, "")
-    .replace(/A$/gm, "")
 }
 
 function loglan2lojban(text: string) {
   text = text.toLowerCase().replace(/[^a-z'\., ]/g, "").replace(/[\., ]/g, " ")
 
   let arrText = text.split(" ").filter(Boolean)
-  items.forEach((item) => {
-    const myregexp: RegExp = new RegExp(`^${item[1]}$`, "gm")
-    for (let j = 0; j < arrText.length; j++) {
-      if (arrText[j].match(myregexp) !== null) {
-        arrText[j] = item[0].replace(/ /gm, "A ").replace(/$/gm, "A")
+  const itemsString: [string, string][] = items.filter(i => typeof i[0] === 'string') as [string, string][];
+  const itemsArray: [string[], string][] = items.filter(i => Array.isArray(i[0])) as [string[], string][];
+  for (let j = 0; j < arrText.length; j++) {
+    if (arrText[j] === null) continue;
+    let found = false
+
+    for (let item of itemsArray) {
+      if (arrText[j] === item[1]) {
+        arrText[j] = item[0].join(" ")
+        found = true;
+        break;
       }
     }
-  })
 
-  return arrText
+    if (!found)
+      for (let item of itemsString) {
+        if (arrText[j] === item[1]) {
+          arrText[j] = item[0]
+          found = true;
+          break;
+        }
+      }
+    if (!found) arrText[j] += "*"
+  }
+
+  return arrText.filter(Boolean)
     .join(" ")
-    .replace(/ /gm, "* ")
-    .replace(/$/gm, "*")
-    .replace(/A\*/gm, "")
-    .replace(/A$/gm, "")
 }
 
 export { lojban2loglan, loglan2lojban }

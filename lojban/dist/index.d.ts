@@ -43,6 +43,11 @@ export declare const rafsi_giho_nai_se_rafsi: (valsi: string, jsonDoc?: string, 
 };
 export declare const xulujvo: (te_gerna: string) => boolean;
 export declare function xugismu(te_gerna: string): boolean;
+export declare function loglytufa_master(te_gerna: any): {
+    tcini: string;
+    "te spuda": any;
+    kampu: any;
+};
 export declare function ilmentufa_off(te_gerna: any, mode: any, preprocess: any): {
     tcini: string;
     "te spuda": any;

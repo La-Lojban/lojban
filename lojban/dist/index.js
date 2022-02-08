@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.wiktionary = exports.gloss = exports.loglan2lojban = exports.lojban2loglan = exports.rotpaci = exports.modzi = exports.anji = exports.zeizei = exports.ilmentufa_exp = exports.ilmentufa_off = exports.xugismu = exports.xulujvo = exports.rafsi_giho_nai_se_rafsi = exports.dump = exports.word = exports.selmaho = exports.rafsi = exports.jvokaha_gui = exports.jvokaha2 = exports.jvokaha = exports.jvozba = exports.krulermorna = exports.rukylermorna = exports.jbopomofo = exports.cmaxes = exports.romoi_lahi_cmaxes = exports.preprocessing = void 0;
+exports.wiktionary = exports.gloss = exports.loglan2lojban = exports.lojban2loglan = exports.rotpaci = exports.modzi = exports.anji = exports.zeizei = exports.ilmentufa_exp = exports.ilmentufa_off = exports.loglytufa_master = exports.xugismu = exports.xulujvo = exports.rafsi_giho_nai_se_rafsi = exports.dump = exports.word = exports.selmaho = exports.rafsi = exports.jvokaha_gui = exports.jvokaha2 = exports.jvokaha = exports.jvozba = exports.krulermorna = exports.rukylermorna = exports.jbopomofo = exports.cmaxes = exports.romoi_lahi_cmaxes = exports.preprocessing = void 0;
 const english = require("./bangu/english");
 const vrici = require("./ceha/vrici");
 const camxes_preproc_1 = require("./libs/camxes_preproc");
@@ -62,6 +62,18 @@ function xugismu(te_gerna) {
     return (0, xuvalsi_1.xugismu)(te_gerna, exports.romoi_lahi_cmaxes);
 }
 exports.xugismu = xugismu;
+function loglytufa_master(te_gerna) {
+    try {
+        const terspuda = require("./libs/loglan_postproc").postprocessing(require("../libs/loglytufa/loglan.js").parse(te_gerna, {
+            startRule: 'phoneticutterance'
+        }), { morphemes: true });
+        return { tcini: "na djuno", "te spuda": terspuda, kampu: terspuda };
+    }
+    catch (e) {
+        return { tcini: "fliba", "te spuda": e, kampu: e.toString() };
+    }
+}
+exports.loglytufa_master = loglytufa_master;
 function ilmentufa_off(te_gerna, mode, preprocess) {
     if (preprocess)
         te_gerna = (0, camxes_preproc_1.preprocessing)(te_gerna);

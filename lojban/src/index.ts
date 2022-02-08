@@ -85,6 +85,18 @@ export function xugismu(te_gerna: string) {
   return xugismu_local(te_gerna, romoi_lahi_cmaxes)
 }
 
+export function loglytufa_master(te_gerna: any) {
+  try {
+    const terspuda =
+      require("./libs/loglan_postproc").postprocessing(require("../libs/loglytufa/loglan.js").parse(te_gerna, {
+        startRule: 'phoneticutterance'
+      }
+      ),{morphemes: true});
+    return { tcini: "na djuno", "te spuda": terspuda, kampu: terspuda }
+  } catch (e) {
+    return { tcini: "fliba", "te spuda": e, kampu: e.toString() }
+  }
+}
 export function ilmentufa_off(te_gerna: any, mode: any, preprocess: any) {
   if (preprocess)
     te_gerna = preprocessing(te_gerna)
