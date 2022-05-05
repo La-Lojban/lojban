@@ -1461,9 +1461,10 @@ function lojban2loglan(text, gentufa) {
     const tree = gentufa(text);
     if (tree.tcini === "fliba")
         return "";
+    console.log(tree.kampu);
     let arrText = tree["kampu"]
-        .map((a) => a[1].replace(/-/g, ""))
-        .filter((a) => a !== " ");
+        .filter((a) => a[0] !== 'drata')
+        .map((a) => a[1].replace(/-/g, ""));
     const itemsString = items.filter(i => typeof i[0] === 'string');
     const itemsArray = items.filter(i => Array.isArray(i[0]));
     for (let j = 0; j < arrText.length; j++) {

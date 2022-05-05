@@ -1,10 +1,10 @@
+import axios from "axios";
+import { escape } from "querystring";
 import * as R from "ramda";
-import axios from "axios"
-import { escape } from "querystring"
-import { cllk } from "./cll"
 import {
-  jvokaha_gui as jvokaha_gui_local,
-} from "../sozysozbot_jvozba"
+  jvokaha_gui as jvokaha_gui_local
+} from "../sozysozbot_jvozba";
+import { cllk } from "./cll";
 
 type TargetElem = { processed: boolean, word: string, processedWord?: string | null }
 
@@ -180,7 +180,7 @@ export function gloss(
       .replace(/[^a-z'\. ]/g, "")
       .replace(/ {2,}/gm, " ")
       .trim()
-    console.log(parsed,te_gerna)
+    console.log(parsed, te_gerna)
   }
   const arr_te_gerna = te_gerna.split(" ")
 
@@ -377,7 +377,7 @@ export const wiktionary = (
     galfi(
       sespusku,
       vefanva,
-      encoding ? sespusku.body.toString(encoding) : sespusku.body,
+      encoding ? (sespusku?.body || '-').toString(encoding) : sespusku?.body || '-',
       akti
     )
   })

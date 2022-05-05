@@ -1458,9 +1458,11 @@ function lojban2loglan(text: string, gentufa: any) {
   text = text.toLowerCase().replace(/[^a-z'\. ]/g, "")
   const tree = gentufa(text)
   if (tree.tcini === "fliba") return ""
+  console.log(tree.kampu);
+
   let arrText: string[] = tree["kampu"]
+    .filter((a: string) => a[0] !== 'drata')
     .map((a: any[]) => a[1].replace(/-/g, ""))
-    .filter((a: string) => a !== " ")
 
   const itemsString: [string, string][] = items.filter(i => typeof i[0] === 'string') as [string, string][];
   const itemsArray: [string[], string][] = items.filter(i => Array.isArray(i[0])) as [string[], string][];
@@ -1471,7 +1473,7 @@ function lojban2loglan(text: string, gentufa: any) {
     for (let item of itemsArray) {
       if (arrText.slice(j, j + item[0].length).join(" ") === item[0].join(" ")) {
         const filler = new Array(item[0].length).fill(null)
-        arrText.splice(j, j + item[0].length-1, ...filler)
+        arrText.splice(j, j + item[0].length - 1, ...filler)
         arrText[j] = item[1]
         found = true;
         break;
