@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.wiktionary = exports.gloss = exports.loglan2lojban = exports.lojban2loglan = exports.rotpaci = exports.modzi = exports.anji = exports.zeizei = exports.ilmentufa_exp = exports.ilmentufa_off = exports.loglytufa_master = exports.xugismu = exports.xulujvo = exports.rafsi_giho_nai_se_rafsi = exports.dump = exports.word = exports.selmaho = exports.rafsi = exports.jvokaha_gui = exports.jvokaha2 = exports.jvokaha = exports.jvozba = exports.krulermorna = exports.rukylermorna = exports.jbopomofo = exports.cmaxes = exports.romoi_lahi_cmaxes = exports.preprocessing = void 0;
+exports.wiktionary = exports.gloss = exports.loglan2lojban = exports.lojban2loglan = exports.rotpaci = exports.lojban2ipa = exports.modzi = exports.anji = exports.zeizei = exports.ilmentufa_exp = exports.ilmentufa_off = exports.loglytufa_master = exports.xugismu = exports.xulujvo = exports.rafsi_giho_nai_se_rafsi = exports.dump = exports.word = exports.selmaho = exports.rafsi = exports.jvokaha_gui = exports.jvokaha2 = exports.jvokaha = exports.jvozba = exports.krulermorna = exports.rukylermorna = exports.jbopomofo = exports.cmaxes = exports.romoi_lahi_cmaxes = exports.preprocessing = void 0;
 const english = require("./bangu/english");
 const vrici = require("./ceha/vrici");
 const camxes_preproc_1 = require("./libs/camxes_preproc");
@@ -12,6 +12,7 @@ const cmaxes_1 = require("./cmaxes/cmaxes");
 const zeizei_1 = require("./ceha/zeizei");
 const anji_1 = require("./ceha/anji");
 const modzi_1 = require("./ceha/modzi");
+const ipa_1 = require("./ceha/ipa");
 const romoi_lahi_cmaxes = (te_gerna) => {
     try {
         const terspuda = (0, cmaxes_1.parse)(te_gerna);
@@ -65,7 +66,7 @@ exports.xugismu = xugismu;
 function loglytufa_master(te_gerna) {
     try {
         const terspuda = require("./libs/loglan_postproc").postprocessing(require("../libs/loglytufa/loglan.js").parse(te_gerna, {
-            startRule: 'phoneticutterance'
+            startRule: "phoneticutterance",
         }), { morphemes: true });
         return { tcini: "na djuno", "te spuda": terspuda, kampu: terspuda };
     }
@@ -104,6 +105,8 @@ const anji = (te_gerna) => (0, anji_1.anji)(te_gerna, exports.zeizei, exports.ro
 exports.anji = anji;
 const modzi = (te_gerna, rawOutput) => (0, modzi_1.modzi)(te_gerna, exports.zeizei, exports.romoi_lahi_cmaxes, rawOutput);
 exports.modzi = modzi;
+const lojban2ipa = (te_gerna, mode) => (0, ipa_1.lojban2ipa)(te_gerna, mode);
+exports.lojban2ipa = lojban2ipa;
 const rotpaci = (te_gerna) => (0, zeizei_1.rotpaci)(te_gerna);
 exports.rotpaci = rotpaci;
 const lojban2loglan = (te_gerna) => {

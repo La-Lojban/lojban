@@ -1,11 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.rafsi_giho_nai_se_rafsi = exports.rafsi = exports.selmaho = exports.word = exports.wiktionary = exports.gloss = exports.fastParse = void 0;
-const R = require("ramda");
 const axios_1 = require("axios");
-const querystring_1 = require("querystring");
-const cll_1 = require("./cll");
+const R = require("ramda");
 const sozysozbot_jvozba_1 = require("../sozysozbot_jvozba");
+const cll_1 = require("./cll");
 const items = {
     a: "and/or",
     ba: "in-future",
@@ -335,10 +334,10 @@ const galfi = (response, bangu, data, akti) => {
     }
 };
 const wiktionary = (te_gerna, vefanva, akti) => {
-    const urli = "https://en.wiktionary.org/w/api.php?format=json&action=query&titles={valsi}&rvprop=content&prop=revisions&redirects=1&callback=?".replace("{valsi}", (0, querystring_1.escape)(te_gerna));
+    const urli = "https://en.wiktionary.org/w/api.php?format=json&action=query&titles={valsi}&rvprop=content&prop=revisions&redirects=1&callback=?".replace("{valsi}", encodeURIComponent(te_gerna));
     const encoding = "utf8";
     axios_1.default.get(urli).then((sespusku) => {
-        galfi(sespusku, vefanva, encoding ? sespusku.body.toString(encoding) : sespusku.body, akti);
+        galfi(sespusku, vefanva, encoding ? ((sespusku === null || sespusku === void 0 ? void 0 : sespusku.body) || '-').toString(encoding) : (sespusku === null || sespusku === void 0 ? void 0 : sespusku.body) || '-', akti);
     });
 };
 exports.wiktionary = wiktionary;

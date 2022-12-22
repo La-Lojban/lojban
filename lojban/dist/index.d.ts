@@ -61,6 +61,7 @@ export declare function ilmentufa_exp(te_gerna: any, mode: any, preprocess: any)
 export declare const zeizei: (te_gerna: any, returnFullInfo?: any) => any;
 export declare const anji: (te_gerna: string) => any;
 export declare const modzi: (te_gerna: any, rawOutput?: boolean) => any;
+export declare const lojban2ipa: (te_gerna: any, mode?: string) => string;
 export declare const rotpaci: (te_gerna: string) => string;
 export declare const lojban2loglan: (te_gerna: string) => any;
 export declare const loglan2lojban: (te_gerna: string) => any;

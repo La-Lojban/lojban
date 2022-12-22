@@ -1,5 +1,4 @@
 import axios from "axios";
-import { escape } from "querystring";
 import * as R from "ramda";
 import {
   jvokaha_gui as jvokaha_gui_local
@@ -370,7 +369,7 @@ export const wiktionary = (
 ) => {
   const urli = "https://en.wiktionary.org/w/api.php?format=json&action=query&titles={valsi}&rvprop=content&prop=revisions&redirects=1&callback=?".replace(
     "{valsi}",
-    escape(te_gerna)
+    encodeURIComponent(te_gerna)
   )
   const encoding = "utf8"
   axios.get(urli).then((sespusku: any) => {

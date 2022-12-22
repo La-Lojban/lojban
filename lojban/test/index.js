@@ -3,6 +3,12 @@ const chai = require("chai"),
   chai_expect = chai.expect,
   lojban = require("../dist/index")
 
+describe("#ipa", function () {
+  it('transliterates "coi ro do" into ", ʃˈɔɪ ɹoː doː."', function () {
+    lojban.lojban2ipa("coi ro do").should.equal(", ʃˈɔɪ ɹoː doː.")
+  })
+})
+
 describe("#krulermorna", function () {
   it('transliterates "coi ro do" into "cǫ ro do"', function () {
     lojban.krulermorna("coi ro do").should.equal("cǫ ro do")
