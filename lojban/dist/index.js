@@ -105,7 +105,7 @@ const anji = (te_gerna) => (0, anji_1.anji)(te_gerna, exports.zeizei, exports.ro
 exports.anji = anji;
 const modzi = (te_gerna, rawOutput) => (0, modzi_1.modzi)(te_gerna, exports.zeizei, exports.romoi_lahi_cmaxes, rawOutput);
 exports.modzi = modzi;
-const lojban2ipa = (te_gerna, mode) => (0, ipa_1.lojban2ipa)(te_gerna, mode);
+const lojban2ipa = (te_gerna, mode, gentufa = exports.romoi_lahi_cmaxes) => (0, ipa_1.lojban2ipa)(te_gerna, mode, gentufa);
 exports.lojban2ipa = lojban2ipa;
 const rotpaci = (te_gerna) => (0, zeizei_1.rotpaci)(te_gerna);
 exports.rotpaci = rotpaci;

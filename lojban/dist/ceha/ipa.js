@@ -149,7 +149,11 @@ const diphthong_coming_pattern = compile(/(?=[ąęǫḁ])/);
 const question_words = krulermornaize(["ma", "mo", "xu"]);
 const starter_words = krulermornaize(["le", "lo", "lei", "loi"]);
 const terminator_words = krulermornaize(["kei", "ku'o", "vau", "li'u"]);
-function lojban2ipa(text, mode = 'vits') {
+function lojban2ipa(text, mode = "vits", gentufa) {
+    const parsed = gentufa(text);
+    if (parsed.tcini === "fliba")
+        return "";
+    text = parsed["te spuda"].map((i) => i[1]).join(" ");
     if (mode === "vits") {
         return lojban2ipa_vits(text);
     }

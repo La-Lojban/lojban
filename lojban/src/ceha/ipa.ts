@@ -154,7 +154,18 @@ const question_words = krulermornaize(["ma", "mo", "xu"]);
 const starter_words = krulermornaize(["le", "lo", "lei", "loi"]);
 const terminator_words = krulermornaize(["kei", "ku'o", "vau", "li'u"]);
 
-export function lojban2ipa(text: string, mode='vits'): string {
+export function lojban2ipa(
+	text: string,
+	mode = "vits",
+	gentufa: (te_gerna: string) => {
+		tcini: string;
+		"te spuda": [string, string][];
+		kampu: [string, string][];
+	}
+): string {
+	const parsed = gentufa(text);
+	if (parsed.tcini === "fliba") return "";
+	text = parsed["te spuda"].map((i: [string, string]) => i[1]).join(" ");
 	if (mode === "vits") {
 		return lojban2ipa_vits(text);
 	}

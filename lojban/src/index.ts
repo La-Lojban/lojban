@@ -145,7 +145,11 @@ export const anji = (te_gerna: string) =>
 export const modzi = (te_gerna: any, rawOutput?: boolean) =>
 	modzi_local(te_gerna, zeizei, romoi_lahi_cmaxes, rawOutput);
 
-export const lojban2ipa = (te_gerna: any, mode?: string) => lojban2ipa_local(te_gerna, mode);
+export const lojban2ipa = (
+	te_gerna: any,
+	mode?: string,
+	gentufa = romoi_lahi_cmaxes
+) => lojban2ipa_local(te_gerna, mode, gentufa);
 
 export const rotpaci = (te_gerna: string) => rotpaci_local(te_gerna);
 
