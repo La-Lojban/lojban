@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.wiktionary = exports.gloss = exports.loglan2lojban = exports.lojban2loglan = exports.rotpaci = exports.lojban2ipa = exports.modzi = exports.anji = exports.zeizei = exports.ilmentufa_exp = exports.ilmentufa_off = exports.loglytufa_master = exports.xugismu = exports.xulujvo = exports.rafsi_giho_nai_se_rafsi = exports.dump = exports.word = exports.selmaho = exports.rafsi = exports.jvokaha_gui = exports.jvokaha2 = exports.jvokaha = exports.jvozba = exports.krulermorna = exports.rukylermorna = exports.jbopomofo = exports.cmaxes = exports.romoi_lahi_cmaxes = exports.preprocessing = void 0;
+exports.wiktionary = exports.gloss = exports.loglan2lojban = exports.lojban2loglan = exports.rotpaci = exports.lojban2ipa = exports.modzi = exports.anji = exports.zeizei = exports.ilmentufa_exp = exports.ilmentufa_off = exports.loglytufa_master = exports.xugismu = exports.xulujvo = exports.rafsi_giho_nai_se_rafsi = exports.dump = exports.word = exports.selmaho = exports.rafsi = exports.jvokaha_gui = exports.jvokaha2 = exports.jvokaha = exports.jvozba = exports.tibetan = exports.krulermorna = exports.rukylermorna = exports.jbopomofo = exports.cmaxes = exports.romoi_lahi_cmaxes = exports.preprocessing = void 0;
 const english = require("./bangu/english");
 const vrici = require("./ceha/vrici");
 const camxes_preproc_1 = require("./libs/camxes_preproc");
@@ -39,6 +39,8 @@ const rukylermorna = (te_gerna) => vrici.rukylermorna(te_gerna);
 exports.rukylermorna = rukylermorna;
 const krulermorna = (te_gerna) => vrici.krulermorna(te_gerna);
 exports.krulermorna = krulermorna;
+const tibetan = (te_gerna) => vrici.tibetan(te_gerna);
+exports.tibetan = tibetan;
 const jvozba = (selcmima) => (0, sozysozbot_jvozba_1.jvozba)(selcmima);
 exports.jvozba = jvozba;
 const jvokaha = (valsi) => (0, sozysozbot_jvozba_1.jvokaha)(valsi);

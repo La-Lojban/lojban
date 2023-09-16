@@ -1,6 +1,6 @@
 {
   "name": "lojban",
-  "version": "2.0.35",
+  "version": "2.0.40",
   "description": "Lojban language parsers and tools",
   "main": "dist/index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "@types/fs-extra": "^9.0.13",
     "@types/he": "^1.1.2",
     "@types/node": "^18.7.14",
-    "@types/pegjs": "^0.10.3",
+    "@types/pegjs": "0.10.3",
     "@types/ramda": "^0.28.15",
     "chai": "^4.3.6",
     "fast-xml-parser": "^3.21.1",
@@ -29,9 +29,9 @@
     "mkdirp": "^1.0.4",
     "mocha": "^10.0.0",
     "path-extra": "^4.3.0",
-    "pegjs": "^0.10.0",
+    "pegjs": "0.10.0",
     "ts-node": "^10.9.1",
-    "ts-pegjs": "^1.2.1",
+    "ts-pegjs": "1.2.1",
     "typescript": "^4.8.2"
   }
 }

@@ -117,6 +117,7 @@ const items = [
   ["doi", "hoi"],
   ["joi", "ze"],
   ["ry", "rei"],
+  ["go", "co"],
   ["ge", "ke"],
   ["gi", "ki"],
   ["me", "me"],

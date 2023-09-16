@@ -16,6 +16,11 @@ describe("#krulermorna", function () {
 		lojban.krulermorna("coi ro do").should.equal("cǫ ro do");
 	});
 });
+describe("#tibetan", function () {
+	it('transliterates "lojban" into "ལོཞྦན྄"', function () {
+		lojban.tibetan("lojban").should.equal('ལོཞྦན྄');
+	});
+});
 
 describe("#rukylermorna", function () {
 	it('transliterates "mu sofybakni cu zvati le purdi" into "му софыбакни шу звати лэ пурди"', function () {

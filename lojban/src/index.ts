@@ -51,6 +51,8 @@ export const rukylermorna = (te_gerna: string) => vrici.rukylermorna(te_gerna);
 
 export const krulermorna = (te_gerna: string) => vrici.krulermorna(te_gerna);
 
+export const tibetan = (te_gerna: string) => vrici.tibetan(te_gerna);
+
 export const jvozba = (selcmima: string) => jvozba_local(selcmima);
 
 export const jvokaha = (valsi: string) => jvokaha_local(valsi);

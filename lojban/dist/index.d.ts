@@ -15,6 +15,7 @@ export declare const cmaxes: ({ te_gerna, versiio, }: {
 export declare const jbopomofo: (te_gerna: string) => string;
 export declare const rukylermorna: (te_gerna: string) => string;
 export declare const krulermorna: (te_gerna: string) => string;
+export declare const tibetan: (te_gerna: string) => string;
 export declare const jvozba: (selcmima: string) => any;
 export declare const jvokaha: (valsi: string) => string[];
 export declare const jvokaha2: (valsi: string) => string[];

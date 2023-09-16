@@ -31,7 +31,7 @@ export interface IOtherExpectation {
     type: "other";
     description: string;
 }
-export declare type Expectation = ILiteralExpectation | IClassExpectation | IAnyExpectation | IEndExpectation | IOtherExpectation;
+export type Expectation = ILiteralExpectation | IClassExpectation | IAnyExpectation | IEndExpectation | IOtherExpectation;
 export declare class SyntaxError extends Error {
     static buildMessage(expected: Expectation[], found: string | null): string;
     message: string;
@@ -51,5 +51,5 @@ export interface IParseOptions {
     tracer?: any;
     [key: string]: any;
 }
-export declare type ParseFunction = (input: string, options?: IParseOptions) => any;
+export type ParseFunction = (input: string, options?: IParseOptions) => any;
 export declare const parse: ParseFunction;
