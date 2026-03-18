@@ -1,0 +1,113 @@
+//simplified morphology parser: zoi and non lojban text not supported. capital letters, illegal zunsna pairs are preprocessed
+{
+  function _join(a: any)
+  {
+    if (typeof(a) == "string") return a; else {var r = ""; for (var v in a) { r += _join(a[v]); } return r;}
+  }
+
+  function _node_int(a: any): any
+  {
+    if (typeof(a) == "string") return a;
+    var r = [];
+    for (var v in a)  {r.push( _node_int( a[v] ) );}return r;
+  }
+}
+
+text = expr:(any_word*) {return _node_int(expr);}
+any_word = expr:(jbovla) {return expr;}
+jbovla = pause_0 / cmevla / expr:(cmavo) {return ["cmavo", _join(expr)];} / expr:(gismu) {return ["gismu", _join(expr)];} / expr:(!gismu !fuhivla !cmavo !(ccv h y onset) lujvo_core) {return ["lujvo", _join(expr)];} / expr:(fuhivla) {return ["fu'ivla", _join(expr)];}
+
+cmevla = expr:((&zifcme any_syllable+ &pause) / zifcme) {return ["cmevla", _join(expr)];}
+gismu = long_rafsi &stress &final_syllable pa_zei_karsna &post_word
+fuhivla_head = !rafsi_string !cmavo !(!rafsi_string zunsna rafsi_string) !h &onset unstressed_syllable*
+fuhivla_trim = fuhivla_head slaka &stress consonantal_syllable*
+generic_fuhivla = fuhivla_trim final_syllable
+fuhivla = &generic_fuhivla prefix:(ccv / cvv / cvc) inter:((r / n / l) &(sibilant / other / liquid ) ) end:(unstressed_syllable* slaka &stress consonantal_syllable* final_syllable) {return [_join(prefix),"-",_join(inter),_join(end)]} / &generic_fuhivla prefix:(long_rafsi) inter:(r / n / l) end:(unstressed_syllable* slaka &stress consonantal_syllable* final_syllable / final_syllable) {return [_join(prefix),"-",_join(inter),_join(end)]} / generic_fuhivla
+cmavo = !cmevla !(cvc !stress y h? lujvo_core / cvc &stress y short_final_rafsi) (!h !(zunsna zunsna+) onset (nucleus h)* nucleus / y+) &post_word
+
+lujvo_core = (expr:(hy_rafsi / fuhivla_rafsi / y_rafsi / !any_fuhivla_rafsi y_less_rafsi !any_fuhivla_rafsi) {return [_join(expr),"-"];} )* (expr:(fuhivla / gismu_cvv_final_rafsi) {return [_join(expr)];} / (expi:((stressed_hy_rafsi / stressed_fuhivla_rafsi / stressed_y_rafsi / cvc_ccv_cvv &stress)) exp:(short_final_rafsi) {return [_join(expi),"-",_join(exp)];}) )
+
+any_fuhivla_rafsi = fuhivla / fuhivla_rafsi / stressed_fuhivla_rafsi
+rafsi_string = y_less_rafsi* (gismu_cvv_final_rafsi / cvc_ccv_cvv &stress !y short_final_rafsi / y_rafsi / stressed_y_rafsi / (cvc_ccv_cvv &stress !y)? initial_pair y / hy_rafsi / stressed_hy_rafsi)
+
+zifcme = !h (nucleus / glaide / h / zunsna !pause)* zunsna &pause
+
+stressed_fuhivla_rafsi = exp:(fuhivla_trim) expr:(h y) {return [_join(exp),"-",_join(expr)]} / exp:(fuhivla_trim onset) expr:(y) {return [_join(exp),"-",_join(expr)];}
+fuhivla_rafsi = &unstressed_syllable exp:(fuhivla_head) expr:(h y) {return [_join(exp),"-",_join(expr)]} / exp:(fuhivla_head onset) expr:(y h?) {return [_join(exp),"-",_join(expr)]}
+
+stressed_y_rafsi = exp:(long_rafsi / cvc) &stress expr:(y) {return [_join(exp),"-",_join(expr)]}
+y_rafsi = exp:((long_rafsi / cvc ) !stress) expr:(y h?) {return [_join(exp),"-",_join(expr)]}
+
+y_less_rafsi = !y_rafsi !stressed_y_rafsi !hy_rafsi !stressed_hy_rafsi cvc_ccv_cvv !stress !y !h
+
+stressed_hy_rafsi = exp:((long_rafsi pa_zei_karsna / cvc_ccv_cvv )) &stress expr:(h y) {return [_join(exp),"-",_join(expr)]}
+hy_rafsi = exp:((long_rafsi pa_zei_karsna / cvc_ccv_cvv )) expr:(!stress h y h?) {return [_join(exp),"-", _join(expr)]}
+
+cvc = cv zunsna
+cvc_ccv = cvc / ccv
+ccv = initial_pair pa_zei_karsna
+
+cvv = zunsna re_zei_karsna
+cvc_ccv_cvv = cvc_ccv / cvvr
+cvvr = exp:(zunsna pa_zei_karsna !stress h pa_zei_karsna / cvv) expr:((r &zunsna / n &r)?) {return [_join(exp),"-",_join(expr)]}
+gismu_cvv_final_rafsi = gismu / cv &stress h &final_syllable pa_zei_karsna &post_word
+short_final_rafsi = &final_syllable (zunsna re_zei_karsna / ccv) &post_word
+
+unstressed_syllable = slaka !stress / consonantal_syllable
+
+long_rafsi = cvc_ccv zunsna
+
+cv = zunsna pa_zei_karsna
+
+final_syllable = onset !y nucleus !cmevla &post_word
+stress = (zunsna / glaide)* h? y? slaka pause
+any_syllable = onset nucleus coda? / consonantal_syllable
+slaka = onset !y nucleus coda?
+consonantal_syllable = zunsna &syllabic coda
+
+coda = !any_syllable zunsna &any_syllable / syllabic? zunsna? &pause
+onset = h / glaide / initial
+initial = (affricate / sibilant? other? liquid?) !zunsna !glaide
+other = pfbgvkx / (t / d / n !r) !l / m
+liquid = l / r
+sibilant = cs !x / jz !n !(n / liquid)
+
+nucleus = pa_zei_karsna / re_zei_karsna / y !nucleus
+glaide = (ɩ / w) &nucleus
+re_zei_karsna = ([aA] w !u / [aeoAEO] ɩ !i) !nucleus
+pa_zei_karsna = [aeiouAEIOU] !nucleus
+
+i = [iI]
+u = [uU]
+y = [yY] !(!y nucleus)
+
+ɩ = [iɩI]
+w = [uwUW] {return ["u",""]}
+
+initial_pair = &onset zunsna zunsna !zunsna
+
+affricate = t cs / d jz
+
+zunsna = pfbgvkx / d / jz / cs / t / syllabic
+
+syllabic = l / m / n / r
+
+l = [lL] ![lL]
+m = [mM] ![mM]
+n = [nN] ![nN] !affricate
+r = [rR] ![rR]
+pfbgvkx = [pP] ![pP] / [fF] ![fF] / [bB] ![bB] / [gG] ![gG] / [vV] ![vV] / [kK] ![kK] / [xX] ![xX]
+d = [dD] ![dD]
+jz = [jJ] ![jJ] / [zZ] ![zZ]
+cs = [cC] ![cC] / [sS] ![sS]
+x = [xX] ![xX]
+t = [tT] ![tT]
+h = (['] !['] / [,] ![,]) &nucleus
+
+post_word = pause / !nucleus jbovla / [\}]
+
+pause = pause_0 / !.
+
+pause_0 = expr:([^a-zA-Z,']+) {return ["drata", _join(expr)];}
+
+nul = [^ ]+
